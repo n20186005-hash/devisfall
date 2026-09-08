@@ -1,0 +1,457 @@
+---
+import '../styles/global.css';
+
+const title = 'पाताले छाँगो (Devi’s Fall) पोखरा | टिकट, समय, बाटो र यात्रा सुझाव';
+const description = 'पोखराको पाताले छाँगो (Devi’s Fall) भ्रमण गाइड—प्रवेश शुल्क, खुल्ने समय, पुग्ने बाटो, पार्किङ, राम्रो मौसम, फोटो सुझाव, नजिकका गन्तव्य र FAQ।';
+const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const ogImage = Astro.site ? new URL('/og-card.jpg', Astro.site).toString() : '/og-card.jpg';
+
+const photos = [
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Davis_falls_in_full_flow_during_rainy_season%2C_Pokhara.jpg',
+    alt: 'वर्षायाममा पूर्ण बहावमा पाताले छाँगो',
+    caption: 'वर्षायाममा पानीको बहाव सबैभन्दा नाटकीय देखिन्छ।',
+    credit: 'Saroj Pandey · CC BY-SA 3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Davis_falls_in_full_flow_during_rainy_season,_Pokhara.jpg',
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Davis_Falls.jpg',
+    alt: 'हरियो चट्टानी खोंच हुँदै बगिरहेको पाताले छाँगो',
+    caption: 'सुख्खा समयमा चट्टानका तह र साँघुरो जलमार्ग अझ स्पष्ट देखिन्छन्।',
+    credit: 'Harsh Mahaseth · CC BY-SA 4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Davis_Falls.jpg',
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/David%27s_fall_Pokhara.jpg',
+    alt: 'चट्टानको साँघुरो भागमा खसिरहेको पानी',
+    caption: 'पानी सतहबाट साँघुरो खोंचतर्फ खस्दै भूमिगत मार्गमा पस्छ।',
+    credit: 'Nabin845 · CC BY-SA 4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:David%27s_fall_Pokhara.jpg',
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Devi%27s_Fall_from_Gupteshwor_Cave.JPG',
+    alt: 'गुप्तेश्वर गुफाभित्रबाट देखिने पाताले छाँगोको जलधारा',
+    caption: 'गुप्तेश्वर महादेव गुफाको तल्लो भागबाट जलधाराको अर्को रूप देख्न सकिन्छ।',
+    credit: 'Rajivkilanashrestha · CC BY-SA 3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Devi%27s_Fall_from_Gupteshwor_Cave.JPG',
+  },
+];
+
+const faqs = [
+  {
+    q: 'पाताले छाँगो हेर्न कति समय छुट्याउने?',
+    a: 'झरना मात्र सहज गतिमा हेर्न करिब ३०–४५ मिनेट पर्याप्त हुन्छ। गुप्तेश्वर महादेव गुफा पनि जोड्दा कम्तीमा १.५–२ घण्टा राख्नु राम्रो हुन्छ।',
+  },
+  {
+    q: 'सबैभन्दा राम्रो समयमा कहिले जाने?',
+    a: 'वर्षा र वर्षापछिको समयमा बहाव बलियो हुन्छ। वर्षामा दृश्य प्रभावशाली भए पनि रेलिङ, ढुंगा र गुफा आसपास चिप्लो हुन सक्छ; सुरक्षित जुत्ता उपयोगी हुन्छ।',
+  },
+  {
+    q: 'प्रवेश शुल्क कति छ?',
+    a: 'नगरबाट सार्वजनिक गरिएको शुल्क संरचनाअनुसार नेपाली विद्यार्थी रु ३०, नेपाली नागरिक रु ५० र विदेशी पर्यटक रु १५० राखिएको छ। शुल्क परिवर्तन हुन सक्ने भएकाले टिकट काउन्टरमा हालको दर पुष्टि गर्नुहोस्।',
+  },
+  {
+    q: 'गुप्तेश्वर महादेव गुफा यही टिकटमा पर्छ?',
+    a: 'पर्दैन। गुफा सडकपारि छुट्टै आकर्षण हो र यसको प्रवेश व्यवस्था अलग हुन्छ। दुवैलाई एउटै यात्रामा मिलाउन सजिलो छ।',
+  },
+  {
+    q: 'बालबालिका वा ज्येष्ठ नागरिकका लागि उपयुक्त छ?',
+    a: 'मुख्य अवलोकन क्षेत्र धेरै कठिन होइन, तर भीड, भिजेको सतह र केही असमान बाटो हुन सक्छ। रेलिङ नछोड्नुहोस् र वर्षामा विशेष सावधानी अपनाउनुहोस्।',
+  },
+  {
+    q: 'फोटो खिच्न कहाँ राम्रो?',
+    a: 'मुख्य रेलिङको तिरछो कोणबाट खोंच र पानीको गहिराइ एउटै फ्रेममा आउँछ। वर्षामा पानीको फोहरा धेरै हुने भएकाले लेन्स कपडा उपयोगी हुन्छ। गुफाभित्र धार्मिक क्षेत्रको फोटो नियम स्थलमै हेर्नुहोस्।',
+  },
+  {
+    q: 'लेकसाइडबाट कसरी जाने?',
+    a: 'ट्याक्सी वा राइड सबैभन्दा सीधा विकल्प हो र ट्राफिकअनुसार करिब १०–१५ मिनेट लाग्न सक्छ। स्थानीय बसमा चोरेपाटन/सिद्धार्थ राजमार्गतर्फ जाने र झरना नजिक झर्ने विकल्प पनि छ।',
+  },
+];
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction', 'LocalBusiness'],
+  name: 'पाताले छाँगो',
+  alternateName: ['Devi’s Fall Pokhara', 'Davis Falls', 'Patale Chhango'],
+  description,
+  telephone: '+9779805889741',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '5XQ5+HP2, H10',
+    addressLocality: 'Pokhara',
+    addressRegion: 'Gandaki Province',
+    postalCode: '33700',
+    addressCountry: 'NP',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 28.1895641759,
+    longitude: 83.9560887771,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '06:00',
+      closes: '18:00',
+    },
+  ],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.0',
+    bestRating: '5',
+    reviewCount: '21509',
+  },
+  priceRange: 'रु ३०–१५०',
+  sameAs: 'https://maps.app.goo.gl/fBtCZziA1LastCeP6',
+  ...(canonicalURL ? { url: canonicalURL, image: [new URL('/og-card.jpg', Astro.site!).toString()] } : {}),
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+<!doctype html>
+<html lang="ne">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#071b18" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ne_NP" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    {canonicalURL && <meta property="og:url" content={canonicalURL} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  </head>
+  <body>
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/8 glass">
+      <div class="shell flex h-20 items-center justify-between gap-5">
+        <a href="#top" class="focus-ring flex items-center" aria-label="पाताले छाँगो मुख्य भाग">
+          <img src="/logo.svg" alt="पाताले छाँगो" width="246" height="68" class="h-14 w-auto" />
+        </a>
+        <nav class="hidden items-center gap-7 text-sm text-foam/75 md:flex" aria-label="मुख्य नेभिगेसन">
+          <a class="hover:text-water" href="#experience">झरना</a>
+          <a class="hover:text-water" href="#plan">यात्रा योजना</a>
+          <a class="hover:text-water" href="#nearby">वरिपरि</a>
+          <a class="hover:text-water" href="#map">नक्सा</a>
+          <a class="hover:text-water" href="#faq">प्रश्नोत्तर</a>
+        </nav>
+        <a href="https://maps.app.goo.gl/fBtCZziA1LastCeP6" class="focus-ring rounded-full border border-water/35 bg-water/10 px-4 py-2 text-sm font-bold text-water hover:bg-water/15" target="_blank" rel="noopener noreferrer">दिशा खोल्नुहोस् ↗</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="relative min-h-[810px] overflow-hidden pt-20">
+        <div class="hero-media absolute inset-0 top-20">
+          <img src={photos[0].src} alt={photos[0].alt} width="1200" height="1800" fetchpriority="high" />
+        </div>
+        <div class="shell relative z-10 flex min-h-[730px] items-end pb-16 pt-28 lg:items-center lg:pb-0">
+          <div class="max-w-3xl">
+            <span class="kicker">पोखरा · चोरेपाटन</span>
+            <p class="mt-6 text-sm font-bold uppercase tracking-[.22em] text-rock/70">PATĀLE CHHĀNGO · भूमिगत झरना</p>
+            <h1 class="mt-3 text-[clamp(3.7rem,10vw,8.6rem)] font-black leading-[.92] tracking-[-.06em] text-foam">पाताले<br /><span class="text-water">छाँगो</span></h1>
+            <p class="mt-7 max-w-2xl text-lg leading-8 text-foam/78 md:text-xl">पार्दी खोलाको पानी चट्टानको गहिरो खोंचमा झर्छ, आँखाअघि हराउँछ र भूमिगत मार्ग समात्छ—पोखराको सबैभन्दा अनौठो जल–भू-दृश्यमध्ये एक।</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <span class="pill">◷ सामान्य समय ०६:००–१८:००</span>
+              <span class="pill">⌛ ३०–४५ मिनेट</span>
+              <span class="pill">☂ वर्षा/वर्षापछि प्रभावशाली</span>
+              <span class="pill">★ सूचीबद्ध मूल्याङ्कन ४.०/५</span>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 z-10 h-20 bg-gradient-to-t from-cave to-transparent"></div>
+      </section>
+
+      <section id="experience" class="py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+          <div>
+            <span class="kicker">किन फरक छ?</span>
+            <h2 class="section-title">झरना तल होइन,<br /><span class="text-water">जमिनभित्र जान्छ।</span></h2>
+            <p class="section-copy">फेवा ताल क्षेत्रबाट निस्कने जलप्रवाह पार्दी खोलातर्फ आउँदै यहाँ साँघुरो चट्टानी खोंचमा प्रवेश गर्छ। सतहमा देखिने झरना केही क्षणमै भूमिगत जलमार्गमा हराउँछ; यही भौगोलिक रूपले पाताले छाँगोलाई साधारण “दृश्य झरना” भन्दा फरक बनाउँछ।</p>
+            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+              <div class="card p-5"><div class="icon-bubble">≈</div><h3 class="mt-4 font-bold">चट्टानी तह</h3><p class="mt-2 text-sm text-foam/65">जलकटावले काटिएका तह, साँघुरो खोंच र गहिरो प्वाल मुख्य दृश्य तत्व हुन्।</p></div>
+              <div class="card p-5"><div class="icon-bubble">↓</div><h3 class="mt-4 font-bold">लुकेको जलमार्ग</h3><p class="mt-2 text-sm text-foam/65">पानी सतहबाट हराएर भूमिगत सुरुङ-जस्तो प्राकृतिक मार्ग हुँदै अघि बढ्छ।</p></div>
+            </div>
+          </div>
+          <div class="flow-diagram card strata" aria-label="पानी सतहबाट भूमिगत मार्गमा जाने सांकेतिक रेखाचित्र">
+            <div class="earth"></div><div class="waterway"></div><div class="shaft"></div><div class="cave"></div>
+            <div class="absolute left-[7%] top-[9%] rounded-full bg-cave/85 px-3 py-2 text-xs font-bold text-water">पार्दी खोलाको जलप्रवाह</div>
+            <div class="absolute right-[5%] top-[29%] max-w-36 text-right text-xs font-bold text-foam/70">साँघुरो खोंचबाट तीव्र झराइ</div>
+            <div class="absolute bottom-[5%] right-[8%] text-xs font-bold text-rock/80">भूमिगत प्राकृतिक मार्ग</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="plan" class="border-y border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell">
+          <div class="max-w-3xl">
+            <span class="kicker">यात्रा योजना</span>
+            <h2 class="section-title">एक छोटो रोकाइलाई<br />पूरै अनुभव बनाउने तरिका</h2>
+          </div>
+          <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            <article class="card water-line p-7">
+              <p class="text-xs font-bold tracking-[.15em] text-water">टिकट / शुल्क</p>
+              <h3 class="mt-3 text-2xl font-black">रु ३०–१५०</h3>
+              <ul class="mt-5 space-y-2 text-sm text-foam/70">
+                <li>नेपाली विद्यार्थी: रु ३०</li><li>नेपाली नागरिक: रु ५०</li><li>विदेशी पर्यटक: रु १५०</li>
+              </ul>
+              <p class="mt-5 text-xs leading-5 text-rock/65">नगरबाट सार्वजनिक गरिएको शुल्क संरचना। काउन्टरमा हालको दर र छुटको प्रमाण आवश्यकताबारे पुष्टि गर्नुहोस्।</p>
+            </article>
+            <article class="card water-line p-7">
+              <p class="text-xs font-bold tracking-[.15em] text-water">राम्रो समय / बसाइ</p>
+              <h3 class="mt-3 text-2xl font-black">३०–४५ मिनेट</h3>
+              <p class="mt-5 text-sm text-foam/70">झरना मात्र हेर्न। गुप्तेश्वर गुफा जोड्दा १.५–२ घण्टा राख्नु सहज हुन्छ। वर्षा र वर्षापछिको समयमा पानी शक्तिशाली देखिन्छ; सुख्खा समयमा चट्टानको बनावट स्पष्ट हुन्छ।</p>
+            </article>
+            <article class="card water-line p-7">
+              <p class="text-xs font-bold tracking-[.15em] text-water">पार्किङ</p>
+              <h3 class="mt-3 text-2xl font-black">सीमित ठाउँ मान्नुहोस्</h3>
+              <p class="mt-5 text-sm text-foam/70">मुख्य प्रवेश आसपास स्थानीय/सडकछेउ पार्किङ भेटिन सक्छ, तर भीडमा ठाउँ सीमित हुन सक्छ। गेट वा ट्राफिक अवरुद्ध नगर्नुहोस्; शुल्क र उपलब्धता स्थलमै सोध्नुहोस्।</p>
+            </article>
+          </div>
+
+          <div class="mt-16 grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+            <div>
+              <span class="kicker">सिफारिस गरिएको क्रम</span>
+              <h3 class="mt-4 text-3xl font-black">पहिले माथिबाट,<br />पछि तलको गुफाबाट</h3>
+              <p class="mt-5 text-foam/65">झरनाको सतही खोंच हेरेपछि सडकपारिको गुप्तेश्वर महादेव गुफामा जाँदा एउटै जलप्रणालीलाई दुई फरक कोणबाट बुझ्न सजिलो हुन्छ।</p>
+            </div>
+            <ol class="timeline space-y-7">
+              <li class="timeline-item"><span class="timeline-dot"></span><p class="text-xs font-bold text-water">०१ · प्रवेश</p><h4 class="mt-1 text-xl font-bold">टिकट लिएर मुख्य अवलोकन भागतर्फ</h4><p class="mt-2 text-sm text-foam/60">पहिलो दृश्यमा खोंचको चौडाइ, पानीको वेग र रेलिङको सुरक्षित कोण बुझ्नुहोस्।</p></li>
+              <li class="timeline-item"><span class="timeline-dot"></span><p class="text-xs font-bold text-water">०२ · झरना</p><h4 class="mt-1 text-xl font-bold">तिरछो रेलिङबाट गहिराइ हेर्नुहोस्</h4><p class="mt-2 text-sm text-foam/60">वर्षामा फोहरा र आवाज तीव्र हुन्छ; मोबाइल/क्यामेरा सुरक्षित समात्नुहोस्।</p></li>
+              <li class="timeline-item"><span class="timeline-dot"></span><p class="text-xs font-bold text-water">०३ · उद्यान / फोटो</p><h4 class="mt-1 text-xl font-bold">भीड कम भएको किनाराबाट फ्रेम बनाउनुहोस्</h4><p class="mt-2 text-sm text-foam/60">रेलिङ पार नगरी चट्टानको तह, वनस्पति र सेतो पानीलाई एउटै फ्रेममा राख्नुहोस्।</p></li>
+              <li class="timeline-item"><span class="timeline-dot"></span><p class="text-xs font-bold text-water">०४ · गुप्तेश्वर गुफा</p><h4 class="mt-1 text-xl font-bold">सडकपारि भूमिगत दृष्टिकोण</h4><p class="mt-2 text-sm text-foam/60">गुफा छुट्टै टिकट/व्यवस्था भएको स्थल हो। वर्षामा भुइँ चिप्लो हुन सक्छ र धार्मिक भागमा फोटो नियम पालना गर्नुपर्छ।</p></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 md:py-32">
+        <div class="shell">
+          <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div><span class="kicker">दृश्य</span><h2 class="section-title mb-0">पानी, चट्टान र अँध्यारो खोंच</h2></div>
+            <p class="max-w-md text-sm text-foam/55">तस्बिरहरू वास्तविक स्थलका हुन्। तस्बिर श्रेय र लाइसेन्स तल उपलब्ध छ।</p>
+          </div>
+          <div class="gallery-grid mt-10">
+            <figure class="gallery-frame min-h-[620px]"><img src={photos[0].src} alt={photos[0].alt} loading="lazy" /><figcaption>{photos[0].caption}</figcaption></figure>
+            <div class="gallery-stack">
+              <figure class="gallery-frame"><img src={photos[1].src} alt={photos[1].alt} loading="lazy" /><figcaption>{photos[1].caption}</figcaption></figure>
+              <figure class="gallery-frame"><img src={photos[2].src} alt={photos[2].alt} loading="lazy" /><figcaption>{photos[2].caption}</figcaption></figure>
+            </div>
+          </div>
+          <figure class="gallery-frame mt-4 min-h-[400px]"><img src={photos[3].src} alt={photos[3].alt} loading="lazy" /><figcaption>{photos[3].caption}</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="map" class="border-y border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
+          <div>
+            <span class="kicker">विस्तृत यातायात</span>
+            <h2 class="section-title">चोरेपाटन पुग्ने<br />सबैभन्दा सजिलो बाटो</h2>
+            <div class="mt-8 space-y-4">
+              <div class="card p-5"><h3 class="font-bold text-water">लेकसाइडबाट</h3><p class="mt-2 text-sm text-foam/68">ट्याक्सी वा राइड सबैभन्दा सहज; ट्राफिकअनुसार करिब १०–१५ मिनेट लाग्न सक्छ। चालकलाई “पाताले छाँगो, चोरेपाटन” भन्नुहोस्।</p></div>
+              <div class="card p-5"><h3 class="font-bold text-water">स्थानीय बस</h3><p class="mt-2 text-sm text-foam/68">सिद्धार्थ राजमार्ग/चोरेपाटनतर्फ जाने बस वा माइक्रो समातेर झरना नजिक झर्न सकिन्छ। चढ्नुअघि सहचालकसँग “डेभिस फल/पाताले छाँगो” रोकाइ पुष्टि गर्नुहोस्।</p></div>
+              <div class="card p-5"><h3 class="font-bold text-water">स्कुटर / मोटरसाइकल</h3><p class="mt-2 text-sm text-foam/68">H10/सिद्धार्थ राजमार्ग हुँदै चोरेपाटन प्रवेश गर्नुहोस्। भीडको समयमा प्रवेशद्वार अगाडि अनियमित पार्किङ नगर्नुहोस्।</p></div>
+            </div>
+            <div class="mt-7 rounded-2xl border border-rock/15 bg-rock/5 p-5 text-sm text-rock/75">
+              <strong class="text-foam">ठेगाना:</strong> 5XQ5+HP2, H10, Pokhara, Gandaki Province 33700, Nepal<br />
+              <strong class="text-foam">फोन:</strong> <a href="tel:+9779805889741" class="text-water">+977 980-5889741</a>
+            </div>
+          </div>
+          <div class="map-wrap card overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6016.655445690082!2d83.9560887771393!3d28.189564175909652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399595134e82378f%3A0xb581716c3b162f6b!2sDevi's%20Fall%20Pokhara!5e1!3m2!1sne!2snp!4v1788746180053!5m2!1sne!2snp"
+              title="पाताले छाँगो नक्सा"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="flex flex-wrap items-center justify-between gap-3 border-t border-white/8 p-5">
+              <p class="text-sm text-foam/60">नक्सा नेपाली भाषा/नेपाल क्षेत्रका लागि सेट गरिएको छ।</p>
+              <a href="https://maps.app.goo.gl/fBtCZziA1LastCeP6" target="_blank" rel="noopener noreferrer" class="focus-ring rounded-full bg-water px-4 py-2 text-sm font-black text-cave">Google नक्सामा खोल्नुहोस् ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="nearby" class="py-24 md:py-32">
+        <div class="shell">
+          <span class="kicker">वरिपरि</span>
+          <h2 class="section-title">झरनापछि कहाँ?</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-3">
+            <article class="card p-7"><p class="text-xs font-bold text-water">सडकपारि</p><h3 class="mt-3 text-2xl font-black">गुप्तेश्वर महादेव गुफा</h3><p class="mt-4 text-sm text-foam/67">शिव मन्दिर र प्राकृतिक गुफाको संयोजन। तल्लो भागबाट झरनासँग जोडिएको जलधाराको झलक देख्न सकिन्छ; अलग टिकट लाग्छ।</p></article>
+            <article class="card p-7"><p class="text-xs font-bold text-water">पोखरा शहर</p><h3 class="mt-3 text-2xl font-black">अन्तर्राष्ट्रिय पर्वत संग्रहालय</h3><p class="mt-4 text-sm text-foam/67">हिमाल, आरोहण संस्कृति र नेपालका पर्वतीय समुदायबारे बुझ्न उपयोगी—झरनाको प्राकृतिक विषयसँग राम्रोसँग जोडिन्छ।</p></article>
+            <article class="card p-7"><p class="text-xs font-bold text-water">पहाडी दृश्य</p><h3 class="mt-3 text-2xl font-black">विश्व शान्ति स्तूप</h3><p class="mt-4 text-sm text-foam/67">फेवा ताल र पोखराको फराकिलो दृश्यका लागि लोकप्रिय उच्च बिन्दु। मौसम खुलेको दिनमा झरनापछिको अर्को राम्रो रोकाइ।</p></article>
+          </div>
+
+          <div class="mt-16 grid gap-10 lg:grid-cols-[.82fr_1.18fr]">
+            <div>
+              <span class="kicker">वरिपरिका खाना</span>
+              <h3 class="mt-4 text-3xl font-black">चोरेपाटनमै<br />हल्का खाना लिनुहोस्</h3>
+              <p class="mt-5 text-foam/65">झरना आसपास क्याफे र स्थानीय भोजन विकल्प छन्। ठूलो रेस्टुराँ छनोट चाहिँ लेकसाइडमा धेरै हुन्छ; तर छोटो यात्राका लागि यी नजिकका नाम उपयोगी छन्।</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <article class="card p-6"><h4 class="text-xl font-bold">Brew Patan</h4><p class="mt-2 text-sm text-foam/60">कफी, चिया र हल्का नास्ताका लागि चोरेपाटन नजिकको सहज क्याफे विकल्प।</p></article>
+              <article class="card p-6"><h4 class="text-xl font-bold">Little Tibet Cafe &amp; Gift Shop</h4><p class="mt-2 text-sm text-foam/60">तिब्बती स्वाद, चिया र सानो आरामका लागि स्थानीय वातावरण भएको विकल्प।</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="strata border-y border-white/8 py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-2">
+          <div>
+            <span class="kicker">इतिहास र स्थानीय अर्थ</span>
+            <h2 class="section-title">नाममा कथा,<br />भूगोलमा वास्तविकता</h2>
+            <p class="section-copy">नेपाली नाम “पाताले छाँगो” ले पानी जमिनको पातालतिर हराउने अनुभूति सीधै व्यक्त गर्छ। अंग्रेजी नाम “Davis/Devi’s Fall” सँग जोडिएको स्थानीय पर्यटन कथनमा सन् १९६१ तिर एक स्विस पर्यटकको दुर्घटना उल्लेख गरिन्छ; नामको हिज्जे र कथन स्रोतअनुसार फरक पाइन्छ।</p>
+            <p class="mt-5 text-sm text-foam/58">आज यो स्थल पोखराको चिनारी बनेका प्राकृतिक आकर्षणमध्ये एक हो। यसको सांस्कृतिक मूल्य केवल दुर्घटनाको कथामा होइन—पानी, चट्टान, गुफा र नजिकको गुप्तेश्वर महादेव धार्मिक स्थल एउटै भूदृश्यमा जोडिनुमा छ।</p>
+          </div>
+          <div class="card p-8">
+            <p class="text-xs font-bold tracking-[.15em] text-water">भू–दृश्य / “वास्तु” चरित्र</p>
+            <dl class="mt-6 space-y-6">
+              <div><dt class="font-bold">मुख्य प्राकृतिक विशेषता</dt><dd class="mt-1 text-sm text-foam/60">साँघुरो चट्टानी खोंच, जलकटावले खुलेका तह, तीव्र झराइ र भूमिगत जलमार्ग।</dd></div>
+              <div><dt class="font-bold">मानव निर्मित भाग</dt><dd class="mt-1 text-sm text-foam/60">सुरक्षा रेलिङ, अवलोकन क्षेत्र र सानो सार्वजनिक-उद्यान शैलीका सहायक संरचना।</dd></div>
+              <div><dt class="font-bold">महत्त्वपूर्ण सावधानी</dt><dd class="mt-1 text-sm text-foam/60">पानीको वेग अनुमानभन्दा शक्तिशाली हुन सक्छ। रेलिङ नाघ्ने, भिजेको चट्टानमा चढ्ने वा बन्द भागमा प्रवेश गर्ने प्रयास नगर्नुहोस्।</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <span class="kicker">फोटो सुझाव</span>
+            <h2 class="section-title">फोहरा जोगाएर<br />गहिराइ देखाउनुहोस्</h2>
+            <p class="section-copy">सुरक्षित रेलिङबाट तिरछो फ्रेम बनाउँदा अग्रभागमा चट्टान, बीचमा सेतो पानी र पछाडि हरियो किनारा आउँछ। बादल लागेको दिनमा सेतो पानीको विवरण जोगाउन एक्सपोजर अलि घटाउनु उपयोगी हुन्छ।</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="card p-6"><p class="text-xs font-bold text-water">मुख्य कोण</p><h3 class="mt-2 text-xl font-black">उचाइबाट तिरछो दृश्य</h3><p class="mt-3 text-sm text-foam/60">खोंचको आकार र पानी कहाँ हराउँछ भन्ने एउटै फ्रेममा देखाउन उत्तम।</p></div>
+            <div class="card p-6"><p class="text-xs font-bold text-water">वर्षायाम</p><h3 class="mt-2 text-xl font-black">लेन्स कपडा साथमा</h3><p class="mt-3 text-sm text-foam/60">पानीको फोहरा क्षणमै लेन्स भिजाउन सक्छ; फोनको स्ट्र्याप पनि उपयोगी हुन्छ।</p></div>
+            <div class="card p-6"><p class="text-xs font-bold text-water">गुफा</p><h3 class="mt-2 text-xl font-black">धार्मिक क्षेत्रको नियम</h3><p class="mt-3 text-sm text-foam/60">गुप्तेश्वरमा फोटो निषेध/सीमित क्षेत्र हुन सक्छ; स्थलको संकेत र कर्मचारीको निर्देशन पालना गर्नुहोस्।</p></div>
+            <div class="card p-6"><p class="text-xs font-bold text-water">बसोबास</p><h3 class="mt-2 text-xl font-black">लेकसाइड आधार बनाउनुहोस्</h3><p class="mt-3 text-sm text-foam/60">होटल, खाना र यातायात विकल्प धेरै भएकाले अधिकांश यात्रुका लागि लेकसाइड सुविधाजनक आधार हो; शान्त स्थानीय बसाइ चाहिँ चोरेपाटनतिर खोज्न सकिन्छ।</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="border-t border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <span class="kicker">FAQ</span>
+            <h2 class="section-title">जानुअघि<br />छोटो उत्तर</h2>
+            <p class="section-copy">मौसम, चाडपर्व वा स्थानीय व्यवस्थापनका कारण समय/शुल्क बदलिन सक्छ; अनिश्चित कुरा स्थलमै पुष्टि गर्नु सबैभन्दा सुरक्षित हुन्छ।</p>
+          </div>
+          <div class="space-y-3">
+            {faqs.map((item) => (
+              <details class="card group p-0">
+                <summary class="focus-ring flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-bold">
+                  <span>{item.q}</span><span class="text-2xl font-light text-water transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p class="px-6 pb-6 text-sm leading-7 text-foam/65">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/8 py-12">
+      <div class="shell">
+        <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <img src="/logo.svg" alt="पाताले छाँगो" width="246" height="68" class="h-14 w-auto" />
+            <p class="mt-4 max-w-xl text-sm text-foam/52">यो वेबसाइट स्वतन्त्र यात्रा जानकारीका लागि तयार गरिएको हो; पाताले छाँगो, पोखरा महानगरपालिका वा कुनै सरकारी/आधिकारिक निकायको आधिकारिक वेबसाइट होइन।</p>
+          </div>
+          <div class="flex flex-wrap gap-x-5 gap-y-3 text-sm text-foam/58">
+            <button class="focus-ring hover:text-water" data-dialog="privacy">गोपनीयता</button>
+            <button class="focus-ring hover:text-water" data-dialog="terms">प्रयोग सर्त</button>
+            <button class="focus-ring hover:text-water" data-dialog="credits">तस्बिर श्रेय</button>
+            <button class="focus-ring hover:text-water" id="cookie-settings">कुकी सेटिङ</button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="cookie-banner" class="cookie-banner fixed bottom-4 left-1/2 z-[70] hidden w-[min(720px,calc(100%-32px))] -translate-x-1/2 rounded-2xl border border-rock/20 bg-cave-soft p-5">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <p class="text-sm text-foam/70"><strong class="text-foam">विश्लेषण कुकी:</strong> साइट सुधारका लागि GA4 प्रयोग गर्न तपाईंको अनुमति चाहिन्छ। अस्वीकार गर्दा पनि साइट पूर्ण रूपमा चल्छ।</p>
+        <div class="flex shrink-0 gap-2"><button id="cookie-deny" class="focus-ring rounded-full border border-rock/20 px-4 py-2 text-sm font-bold">आवश्यक मात्र</button><button id="cookie-allow" class="focus-ring rounded-full bg-water px-4 py-2 text-sm font-black text-cave">स्वीकार</button></div>
+      </div>
+    </div>
+
+    <dialog id="privacy"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">गोपनीयता</span><h2 class="mt-2 text-3xl font-black">तपाईंको डेटा</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-4 text-sm text-foam/65"><p>यो स्थिर जानकारीमूलक साइटमा खाता, लगइन वा आफ्नै डेटाबेस छैन। फाराममार्फत व्यक्तिगत विवरण सङ्कलन गरिँदैन।</p><p>Google नक्सा खोल्दा वा एम्बेड नक्सा प्रयोग गर्दा Google का आफ्नै गोपनीयता नियम लागू हुन्छन्। GA4 विश्लेषण तपाईंले “स्वीकार” गरेपछि मात्र लोड हुन्छ।</p><p>कुकी रोजाइ तपाईंको ब्राउजरको स्थानीय भण्डारणमा राखिन्छ र “कुकी सेटिङ” बाट फेरि बदल्न सकिन्छ।</p></div></div></dialog>
+    <dialog id="terms"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">प्रयोग सर्त</span><h2 class="mt-2 text-3xl font-black">यात्रा जानकारी</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-4 text-sm text-foam/65"><p>समय, टिकट, पार्किङ, मौसम र पहुँच स्थानीय व्यवस्थापनअनुसार बदलिन सक्छ। यात्रा निर्णयअघि स्थल/काउन्टरमा पुष्टि गर्नुहोस्।</p><p>सुरक्षा रेलिङ, संकेत, कर्मचारी निर्देशन र धार्मिक स्थलका नियम पालना गर्नु प्रयोगकर्ताको जिम्मेवारी हो।</p><p>बाह्य नक्सा वा तस्बिर स्रोत सम्बन्धित प्रदायकका सर्तअन्तर्गत छन्।</p></div></div></dialog>
+    <dialog id="credits"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">तस्बिर श्रेय</span><h2 class="mt-2 text-3xl font-black">वास्तविक स्थलका तस्बिर</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-4 text-sm text-foam/65">{photos.map((photo) => <p><a class="font-bold text-water underline decoration-water/30 underline-offset-4" href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a><br /><span>{photo.alt}</span></p>)}<p class="pt-2 text-xs text-rock/65">वेबका लागि दृश्य आकार बदलिन/क्रप हुन सक्छ; मूल लाइसेन्सको attribution/share-alike सर्त यथावत् लागू हुन्छ।</p></div></div></dialog>
+
+    <script is:inline>
+      (() => {
+        const measurementId = 'G-HXM22WWPKP';
+        const banner = document.getElementById('cookie-banner');
+        let analyticsLoaded = false;
+
+        function loadAnalytics() {
+          if (analyticsLoaded) return;
+          analyticsLoaded = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){ window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, { anonymize_ip: true });
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+          document.head.appendChild(script);
+        }
+
+        function setConsent(value) {
+          localStorage.setItem('analytics-consent', value);
+          banner?.classList.add('hidden');
+          if (value === 'granted') loadAnalytics();
+        }
+
+        const saved = localStorage.getItem('analytics-consent');
+        if (!saved) banner?.classList.remove('hidden');
+        if (saved === 'granted') loadAnalytics();
+        document.getElementById('cookie-allow')?.addEventListener('click', () => setConsent('granted'));
+        document.getElementById('cookie-deny')?.addEventListener('click', () => setConsent('denied'));
+        document.getElementById('cookie-settings')?.addEventListener('click', () => banner?.classList.remove('hidden'));
+
+        document.querySelectorAll('[data-dialog]').forEach((button) => {
+          button.addEventListener('click', () => document.getElementById(button.dataset.dialog)?.showModal());
+        });
+        document.querySelectorAll('[data-close]').forEach((button) => {
+          button.addEventListener('click', () => button.closest('dialog')?.close());
+        });
+        document.querySelectorAll('dialog').forEach((dialog) => {
+          dialog.addEventListener('click', (event) => {
+            const rect = dialog.getBoundingClientRect();
+            if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

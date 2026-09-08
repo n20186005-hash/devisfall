@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 88" role="img" aria-labelledby="t d">
+  <title id="t">पाताले छाँगो</title><desc id="d">चट्टानी खोंचभित्र झर्ने पानीको थोपा</desc>
+  <g transform="translate(4 4)">
+    <path d="M8 68C8 36 24 12 52 7c28 5 44 29 44 61" fill="none" stroke="#d7c9a7" stroke-width="8" stroke-linecap="round"/>
+    <path d="M52 18C38 36 31 44 31 55c0 13 9 22 21 22s21-9 21-22c0-11-7-19-21-37Z" fill="#74d8cf"/>
+    <path d="M46 50c7 3 14 3 21-1-2 11-7 18-15 18-7 0-12-5-14-12 2-2 5-4 8-5Z" fill="#f5f0e5" opacity=".9"/>
+  </g>
+  <g fill="#f5f0e5" font-family="Noto Sans Devanagari, Nirmala UI, Mangal, sans-serif">
+    <text x="116" y="39" font-size="30" font-weight="700">पाताले छाँगो</text>
+    <text x="116" y="66" font-size="15" opacity=".72">पोखराको भूमिगत झरना</text>
+  </g>
+</svg>
