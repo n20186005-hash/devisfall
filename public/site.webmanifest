@@ -1,9 +1,17 @@
 {
-  "name": "पाताले छाँगो — पोखरा",
-  "short_name": "पाताले छाँगो",
+  "name": "Devi's Fall Pokhara — पाताले छाँगो",
+  "short_name": "Devi's Fall",
+  "description": "Visitor guide to Devi's Fall Pokhara (पाताले छाँगो) — tickets, opening hours, directions, map and nearby Gupteshwor Cave.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "ne",
+  "dir": "ltr",
   "icons": [
+    {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
     {"src": "/favicon-32.png", "sizes": "32x32", "type": "image/png"},
-    {"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}
+    {"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"},
+    {"src": "/og-card.jpg", "sizes": "1200x630", "type": "image/jpeg", "purpose": "any"}
   ],
   "theme_color": "#071b18",
   "background_color": "#071b18",

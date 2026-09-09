@@ -1,36 +1,68 @@
 ---
 import '../styles/global.css';
 
-const title = 'पाताले छाँगो (Devi’s Fall) पोखरा | टिकट, समय, बाटो र यात्रा सुझाव';
-const description = 'पोखराको पाताले छाँगो (Devi’s Fall) भ्रमण गाइड—प्रवेश शुल्क, खुल्ने समय, पुग्ने बाटो, पार्किङ, राम्रो मौसम, फोटो सुझाव, नजिकका गन्तव्य र FAQ।';
+/* ——— Entity: Devi's Fall Pokhara (पाताले छाँगो) ——— */
+const fullName = 'Devi’s Fall Pokhara';
+const localName = 'पाताले छाँगो';
+const romanName = 'Patale Chhango';
+const shortName = 'Devi’s Fall';
+const cityName = 'Pokhara';
+const stateName = 'Gandaki Province';
+const countryName = 'Nepal';
+const addressText = '5XQ5+HP2, H10, Pokhara, Gandaki Province 33700, Nepal';
+const postalCode = '33700';
+const countryCode = 'NP';
+const lat = 28.1895641759;
+const lng = 83.9560887771;
+const mapsUrl = 'https://maps.app.goo.gl/fBtCZziA1LastCeP6';
+const mapsEmbedSrc =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6016.655445690082!2d83.9560887771393!3d28.189564175909652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399595134e82378f%3A0xb581716c3b162f6b!2sDevi%27s%20Fall%20Pokhara!5e1!3m2!1sne!2snp!4v1788746180053!5m2!1sne!2snp';
+const phoneHref = '+9779805889741';
+const phoneDisplay = '+977 980-5889741';
+const rating = '4.0';
+const reviewCount = '21,509';
+const govtTourismUrl = 'https://trade.ntb.gov.np/tourist-destination/pokhara/';
+const govtTourismName = 'Nepal Tourism Board — Pokhara';
+const govtTourismUrl2 = 'https://pokharatourism.org.np/caves/';
+const govtTourismName2 = 'Pokhara Tourism Council — Caves & Devi’s Fall';
+const nearby1 = 'Gupteshwor Mahadev Cave';
+const nearby2 = 'International Mountain Museum';
+const nearby3 = 'Phewa Lake';
+
+/* ——— Meta / TDK ——— */
+const title = `${fullName} (${cityName}) — Visitor Guide & Location`;
+const description =
+  'Discover Devi’s Fall Pokhara (पाताले छाँगो / Patale Chhango), the iconic waterfall in Pokhara, Gandaki Province, Nepal, that travels through caves and underground tunnels. View location map, tickets & hours, and nearby Gupteshwor Mahadev Cave.';
 const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 const ogImage = Astro.site ? new URL('/og-card.jpg', Astro.site).toString() : '/og-card.jpg';
+const heroImage = Astro.site ? new URL('/images/devis-fall-monsoon.jpg', Astro.site).toString() : '/images/devis-fall-monsoon.jpg';
 
+/* ——— Photos (local files, attributed per license) ——— */
 const photos = [
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Davis_falls_in_full_flow_during_rainy_season%2C_Pokhara.jpg',
-    alt: 'वर्षायाममा पूर्ण बहावमा पाताले छाँगो',
+    src: '/images/devis-fall-monsoon.jpg',
+    alt: 'Devi’s Fall Pokhara (पाताले छाँगो) in full flow during the monsoon',
     caption: 'वर्षायाममा पानीको बहाव सबैभन्दा नाटकीय देखिन्छ।',
     credit: 'Saroj Pandey · CC BY-SA 3.0',
     source: 'https://commons.wikimedia.org/wiki/File:Davis_falls_in_full_flow_during_rainy_season,_Pokhara.jpg',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Davis_Falls.jpg',
-    alt: 'हरियो चट्टानी खोंच हुँदै बगिरहेको पाताले छाँगो',
+    src: '/images/devis-fall-gorge.jpg',
+    alt: 'Devi’s Fall Pokhara (पाताले छाँगो) streaming through a green rock gorge',
     caption: 'सुख्खा समयमा चट्टानका तह र साँघुरो जलमार्ग अझ स्पष्ट देखिन्छन्।',
     credit: 'Harsh Mahaseth · CC BY-SA 4.0',
     source: 'https://commons.wikimedia.org/wiki/File:Davis_Falls.jpg',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/David%27s_fall_Pokhara.jpg',
-    alt: 'चट्टानको साँघुरो भागमा खसिरहेको पानी',
+    src: '/images/devis-fall-rock-channel.jpg',
+    alt: 'Water dropping into the narrow rock channel at Devi’s Fall Pokhara',
     caption: 'पानी सतहबाट साँघुरो खोंचतर्फ खस्दै भूमिगत मार्गमा पस्छ।',
     credit: 'Nabin845 · CC BY-SA 4.0',
     source: 'https://commons.wikimedia.org/wiki/File:David%27s_fall_Pokhara.jpg',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Devi%27s_Fall_from_Gupteshwor_Cave.JPG',
-    alt: 'गुप्तेश्वर गुफाभित्रबाट देखिने पाताले छाँगोको जलधारा',
+    src: '/images/devis-fall-from-gupteshwor-cave.jpg',
+    alt: 'Devi’s Fall seen from inside Gupteshwor Mahadev Cave',
     caption: 'गुप्तेश्वर महादेव गुफाको तल्लो भागबाट जलधाराको अर्को रूप देख्न सकिन्छ।',
     credit: 'Rajivkilanashrestha · CC BY-SA 3.0',
     source: 'https://commons.wikimedia.org/wiki/File:Devi%27s_Fall_from_Gupteshwor_Cave.JPG',
@@ -38,6 +70,14 @@ const photos = [
 ];
 
 const faqs = [
+  {
+    q: 'Where is Devi’s Fall Pokhara (पाताले छाँगो) located?',
+    a: 'Devi’s Fall Pokhara (पाताले छाँगो / Patale Chhango) is located on H10 road in Chhorepatan, Pokhara, Gandaki Province 33700, Nepal (plus code 5XQ5+HP2), beside Gupteshwor Mahadev Cave and about 10–15 minutes by taxi from Lakeside.',
+  },
+  {
+    q: 'Is there an entrance fee for Devi’s Fall Pokhara?',
+    a: 'Yes, Devi’s Fall Pokhara is ticketed. The municipal rate structure lists NPR 30 for Nepali students, NPR 50 for Nepali citizens and NPR 150 for foreign visitors; please confirm current rates at the ticket counter.',
+  },
   {
     q: 'पाताले छाँगो हेर्न कति समय छुट्याउने?',
     a: 'झरना मात्र सहज गतिमा हेर्न करिब ३०–४५ मिनेट पर्याप्त हुन्छ। गुप्तेश्वर महादेव गुफा पनि जोड्दा कम्तीमा १.५–२ घण्टा राख्नु राम्रो हुन्छ।',
@@ -71,22 +111,25 @@ const faqs = [
 const attractionSchema = {
   '@context': 'https://schema.org',
   '@type': ['TouristAttraction', 'LocalBusiness'],
-  name: 'पाताले छाँगो',
-  alternateName: ['Devi’s Fall Pokhara', 'Davis Falls', 'Patale Chhango'],
+  '@id': 'https://devisfall.com/#attraction',
+  name: fullName,
+  alternateName: [shortName, localName, romanName, `${cityName} ${fullName}`],
   description,
-  telephone: '+9779805889741',
+  telephone: phoneHref,
+  isAccessibleForFree: false,
+  hasMap: mapsUrl,
   address: {
     '@type': 'PostalAddress',
     streetAddress: '5XQ5+HP2, H10',
-    addressLocality: 'Pokhara',
-    addressRegion: 'Gandaki Province',
-    postalCode: '33700',
-    addressCountry: 'NP',
+    addressLocality: cityName,
+    addressRegion: stateName,
+    postalCode,
+    addressCountry: countryCode,
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 28.1895641759,
-    longitude: 83.9560887771,
+    latitude: lat,
+    longitude: lng,
   },
   openingHoursSpecification: [
     {
@@ -98,13 +141,24 @@ const attractionSchema = {
   ],
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.0',
+    ratingValue: rating,
     bestRating: '5',
-    reviewCount: '21509',
+    reviewCount: reviewCount.replace(',', ''),
   },
   priceRange: 'रु ३०–१५०',
-  sameAs: 'https://maps.app.goo.gl/fBtCZziA1LastCeP6',
-  ...(canonicalURL ? { url: canonicalURL, image: [new URL('/og-card.jpg', Astro.site!).toString()] } : {}),
+  sameAs: [mapsUrl, govtTourismUrl, govtTourismUrl2],
+  ...(canonicalURL ? { url: canonicalURL, image: [heroImage, ogImage] } : {}),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: countryName },
+    { '@type': 'ListItem', position: 2, name: stateName },
+    { '@type': 'ListItem', position: 3, name: cityName },
+    { '@type': 'ListItem', position: 4, name: fullName },
+  ],
 };
 
 const faqSchema = {
@@ -137,17 +191,21 @@ const faqSchema = {
     <link rel="manifest" href="/site.webmanifest" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={fullName} />
     <meta property="og:locale" content="ne_NP" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${fullName} in ${cityName}, ${countryName}`} />
     {canonicalURL && <meta property="og:url" content={canonicalURL} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={`${fullName} in ${cityName}, ${countryName}`} />
 
     <script type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   </head>
   <body>
@@ -170,14 +228,16 @@ const faqSchema = {
     <main id="top">
       <section class="relative min-h-[810px] overflow-hidden pt-20">
         <div class="hero-media absolute inset-0 top-20">
-          <img src={photos[0].src} alt={photos[0].alt} width="1200" height="1800" fetchpriority="high" />
+          <img src={photos[0].src} alt={`${fullName} — Main view in ${cityName}, ${countryName}`} width="1200" height="1800" loading="eager" decoding="async" />
         </div>
         <div class="shell relative z-10 flex min-h-[730px] items-end pb-16 pt-28 lg:items-center lg:pb-0">
           <div class="max-w-3xl">
+            <p class="text-xs font-bold uppercase tracking-[.2em] text-water/90">Nepal → Gandaki Province → Pokhara → {fullName}</p>
+            <p class="mt-5 text-sm font-bold uppercase tracking-[.22em] text-rock/70">{fullName} · {localName} · {romanName} · Visitor Guide</p>
             <span class="kicker">पोखरा · चोरेपाटन</span>
-            <p class="mt-6 text-sm font-bold uppercase tracking-[.22em] text-rock/70">PATĀLE CHHĀNGO · भूमिगत झरना</p>
             <h1 class="mt-3 text-[clamp(3.7rem,10vw,8.6rem)] font-black leading-[.92] tracking-[-.06em] text-foam">पाताले<br /><span class="text-water">छाँगो</span></h1>
             <p class="mt-7 max-w-2xl text-lg leading-8 text-foam/78 md:text-xl">पार्दी खोलाको पानी चट्टानको गहिरो खोंचमा झर्छ, आँखाअघि हराउँछ र भूमिगत मार्ग समात्छ—पोखराको सबैभन्दा अनौठो जल–भू-दृश्यमध्ये एक।</p>
+            <p class="mt-4 max-w-2xl text-sm font-medium text-foam/58">{fullName} ({localName} / {romanName}) — {cityName}’s iconic scenic waterfall in {stateName}, {countryName}, known for travelling through caves and underground tunnels.</p>
             <div class="mt-8 flex flex-wrap gap-3">
               <span class="pill">◷ सामान्य समय ०६:००–१८:००</span>
               <span class="pill">⌛ ३०–४५ मिनेट</span>
@@ -187,6 +247,20 @@ const faqSchema = {
           </div>
         </div>
         <div class="absolute bottom-0 left-0 right-0 z-10 h-20 bg-gradient-to-t from-cave to-transparent"></div>
+      </section>
+
+      <section id="about" class="border-b border-white/8 py-14 md:py-16">
+        <div class="shell grid gap-8 md:grid-cols-[.9fr_1.1fr] md:items-center">
+          <div>
+            <span class="kicker">ENGLISH · VISITOR GUIDE</span>
+            <h2 class="section-title mb-0">About {fullName}<br /><span class="text-water">({localName} / {romanName})</span></h2>
+          </div>
+          <div class="space-y-4 text-[15px] leading-7 text-foam/70">
+            <p>Welcome to <strong class="text-foam">{fullName}</strong>, widely recognized as the central <strong class="text-foam">{romanName} ({localName})</strong>. Located in <strong class="text-foam">{cityName}, {stateName}, {countryName}</strong>, this destination serves as one of the city’s most visited natural landmarks for travellers exploring the Phewa Lake region.</p>
+            <p>When visiting <strong class="text-foam">{fullName}</strong>, visitors can easily explore surrounding landmarks and points of interest, including <strong class="text-foam">{nearby1}</strong> and <strong class="text-foam">{nearby2}</strong>.</p>
+            <p class="text-sm text-foam/50">NAP · {fullName} — {addressText} — {phoneDisplay}</p>
+          </div>
+        </div>
       </section>
 
       <section id="experience" class="py-24 md:py-32">
@@ -283,6 +357,14 @@ const faqSchema = {
               <strong class="text-foam">ठेगाना:</strong> 5XQ5+HP2, H10, Pokhara, Gandaki Province 33700, Nepal<br />
               <strong class="text-foam">फोन:</strong> <a href="tel:+9779805889741" class="text-water">+977 980-5889741</a>
             </div>
+            <p class="mt-4 text-sm text-foam/55">Location &amp; how to visit {shortName} in {cityName}: the waterfall and {nearby1} stand opposite each other on H10, about 10–15 minutes by taxi from Lakeside, {cityName}.</p>
+            <div class="mt-5 rounded-2xl border border-rock/15 bg-rock/5 p-5">
+              <p class="text-xs font-bold uppercase tracking-[.15em] text-water">आधिकारिक स्रोतहरू · Official Sources</p>
+              <p class="mt-3 text-sm leading-6 text-foam/60">For official updates and regional tourism information, visit<br />
+                <a class="text-water underline decoration-water/30 underline-offset-4" href={govtTourismUrl} target="_blank" rel="noopener noreferrer">{govtTourismName}</a><br />
+                <a class="text-water underline decoration-water/30 underline-offset-4" href={govtTourismUrl2} target="_blank" rel="noopener noreferrer">{govtTourismName2}</a>
+              </p>
+            </div>
           </div>
           <div class="map-wrap card overflow-hidden">
             <iframe
@@ -377,6 +459,21 @@ const faqSchema = {
           </div>
         </div>
       </section>
+      <section id="sources" class="py-14 md:py-20">
+        <div class="shell grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
+          <div>
+            <span class="kicker">स्रोत · Sources</span>
+            <h2 class="section-title">जानकारी कहाँबाट?<br /><span class="text-water">Official references</span></h2>
+          </div>
+          <div class="space-y-3 text-sm">
+            <a class="card block p-5 font-bold text-foam hover:text-water" href={govtTourismUrl} target="_blank" rel="noopener noreferrer">{govtTourismName}<span class="float-right text-water">↗</span></a>
+            <a class="card block p-5 font-bold text-foam hover:text-water" href={govtTourismUrl2} target="_blank" rel="noopener noreferrer">{govtTourismName2}<span class="float-right text-water">↗</span></a>
+            <a class="card block p-5 font-bold text-foam hover:text-water" href={mapsUrl} target="_blank" rel="noopener noreferrer">{fullName} on Google Maps<span class="float-right text-water">↗</span></a>
+            <p class="px-2 pt-2 text-xs leading-5 text-rock/70">नक्सा, समय, शुल्क र नाम–ठेगाना–फोन (NAP) सम्बन्धी विवरण {cityName} महानगर/पर्यटन प्रवद्र्धन स्रोत र Google Maps सूचीबाट मिलाइएका हुन्। यात्राअघि स्थलमा पुष्टि गर्नुहोस्।</p>
+            <p class="px-2 pt-1 text-xs leading-5 text-rock/70">图片产权：本网站所展示的所有图片产权及版权均归原摄影者所有。<span lang="ne">तस्बिर श्रेय र लाइसेन्स “तस्बिर श्रेय” विन्डोमा उपलब्ध छ।</span></p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="border-t border-white/8 py-12">
@@ -384,15 +481,19 @@ const faqSchema = {
         <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
             <img src="/logo.svg" alt="पाताले छाँगो" width="246" height="68" class="h-14 w-auto" />
-            <p class="mt-4 max-w-xl text-sm text-foam/52">यो वेबसाइट स्वतन्त्र यात्रा जानकारीका लागि तयार गरिएको हो; पाताले छाँगो, पोखरा महानगरपालिका वा कुनै सरकारी/आधिकारिक निकायको आधिकारिक वेबसाइट होइन।</p>
+            <p class="mt-4 text-sm font-black tracking-wide text-foam">{fullName} · {localName}</p>
+            <p class="mt-1 max-w-xl text-sm text-foam/52">{addressText}<br /><a href={`tel:${phoneHref}`} class="text-water">{phoneDisplay}</a></p>
+            <p class="mt-3 max-w-xl text-sm text-foam/52">यो वेबसाइट स्वतन्त्र यात्रा जानकारीका लागि तयार गरिएको हो; पाताले छाँगो, पोखरा महानगरपालिका वा कुनै सरकारी/आधिकारिक निकायको आधिकारिक वेबसाइट होइन।</p>
           </div>
           <div class="flex flex-wrap gap-x-5 gap-y-3 text-sm text-foam/58">
             <button class="focus-ring hover:text-water" data-dialog="privacy">गोपनीयता</button>
             <button class="focus-ring hover:text-water" data-dialog="terms">प्रयोग सर्त</button>
             <button class="focus-ring hover:text-water" data-dialog="credits">तस्बिर श्रेय</button>
+            <button class="focus-ring hover:text-water" data-dialog="sources">स्रोत</button>
             <button class="focus-ring hover:text-water" id="cookie-settings">कुकी सेटिङ</button>
           </div>
         </div>
+        <p class="mt-8 border-t border-white/8 pt-6 text-xs leading-5 text-foam/45">图片产权：本网站所展示的所有图片产权及版权均归原摄影者所有。<span lang="ne">· फोटोको सबै स्वामित्व र प्रतिलिप्यधिकार मूल फोटोग्राफरकै हो।</span><br />© 2026 {fullName} (पाताले छाँगो) — स्वतन्त्र यात्रा गाइड · For official tourism information visit the <a class="text-water underline decoration-water/30 underline-offset-4" href={govtTourismUrl} target="_blank" rel="noopener noreferrer">{govtTourismName}</a>.</p>
       </div>
     </footer>
 
@@ -405,10 +506,14 @@ const faqSchema = {
 
     <dialog id="privacy"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">गोपनीयता</span><h2 class="mt-2 text-3xl font-black">तपाईंको डेटा</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-4 text-sm text-foam/65"><p>यो स्थिर जानकारीमूलक साइटमा खाता, लगइन वा आफ्नै डेटाबेस छैन। फाराममार्फत व्यक्तिगत विवरण सङ्कलन गरिँदैन।</p><p>Google नक्सा खोल्दा वा एम्बेड नक्सा प्रयोग गर्दा Google का आफ्नै गोपनीयता नियम लागू हुन्छन्। GA4 विश्लेषण तपाईंले “स्वीकार” गरेपछि मात्र लोड हुन्छ।</p><p>कुकी रोजाइ तपाईंको ब्राउजरको स्थानीय भण्डारणमा राखिन्छ र “कुकी सेटिङ” बाट फेरि बदल्न सकिन्छ।</p></div></div></dialog>
     <dialog id="terms"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">प्रयोग सर्त</span><h2 class="mt-2 text-3xl font-black">यात्रा जानकारी</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-4 text-sm text-foam/65"><p>समय, टिकट, पार्किङ, मौसम र पहुँच स्थानीय व्यवस्थापनअनुसार बदलिन सक्छ। यात्रा निर्णयअघि स्थल/काउन्टरमा पुष्टि गर्नुहोस्।</p><p>सुरक्षा रेलिङ, संकेत, कर्मचारी निर्देशन र धार्मिक स्थलका नियम पालना गर्नु प्रयोगकर्ताको जिम्मेवारी हो।</p><p>बाह्य नक्सा वा तस्बिर स्रोत सम्बन्धित प्रदायकका सर्तअन्तर्गत छन्।</p></div></div></dialog>
-    <dialog id="credits"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">तस्बिर श्रेय</span><h2 class="mt-2 text-3xl font-black">वास्तविक स्थलका तस्बिर</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-4 text-sm text-foam/65">{photos.map((photo) => <p><a class="font-bold text-water underline decoration-water/30 underline-offset-4" href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a><br /><span>{photo.alt}</span></p>)}<p class="pt-2 text-xs text-rock/65">वेबका लागि दृश्य आकार बदलिन/क्रप हुन सक्छ; मूल लाइसेन्सको attribution/share-alike सर्त यथावत् लागू हुन्छ।</p></div></div></dialog>
+    <dialog id="credits"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">तस्बिर श्रेय</span><h2 class="mt-2 text-3xl font-black">वास्तविक स्थलका तस्बिर</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-4 text-sm text-foam/65">{photos.map((photo) => <p><a class="font-bold text-water underline decoration-water/30 underline-offset-4" href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a><br /><span>{photo.alt}</span></p>)}<p class="pt-2 text-xs text-rock/65">वेबका लागि दृश्य आकार बदलिन/क्रप हुन सक्छ; मूल लाइसेन्सको attribution/share-alike सर्त यथावत् लागू हुन्छ।</p><p class="pt-1 text-xs text-rock/65">图片产权：本网站所展示的所有图片产权及版权均归原摄影者所有。</p></div></div></dialog>
+    <dialog id="sources"><div class="p-7 md:p-9"><div class="flex items-start justify-between gap-5"><div><span class="kicker">स्रोत · Sources</span><h2 class="mt-2 text-3xl font-black">आधिकारिक जानकारी</h2></div><button class="focus-ring text-2xl text-water" data-close aria-label="बन्द गर्नुहोस्">×</button></div><div class="mt-6 space-y-3 text-sm text-foam/65"><a class="block font-bold text-water underline decoration-water/30 underline-offset-4" href={govtTourismUrl} target="_blank" rel="noopener noreferrer">{govtTourismName} ↗</a><a class="block font-bold text-water underline decoration-water/30 underline-offset-4" href={govtTourismUrl2} target="_blank" rel="noopener noreferrer">{govtTourismName2} ↗</a><a class="block font-bold text-water underline decoration-water/30 underline-offset-4" href={mapsUrl} target="_blank" rel="noopener noreferrer">{fullName} — Google Maps ↗</a><p class="pt-2">नक्सा, समय, शुल्क र NAP विवरण {cityName} सहरको पर्यटन प्रवद्र्धन स्रोत र Google Maps सूचीबाट लिइएका हुन्। पाताले छाँगो प्रबन्ध वा शुल्कबारे आधिकारिक निर्णय सम्बन्धित निकायको मात्र हो।</p></div></div></dialog>
 
     <script is:inline>
       (() => {
+        if ('serviceWorker' in navigator && window.isSecureContext) {
+          window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+        }
         const measurementId = 'G-HXM22WWPKP';
         const banner = document.getElementById('cookie-banner');
         let analyticsLoaded = false;
