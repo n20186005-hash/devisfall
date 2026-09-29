@@ -1,0 +1,155 @@
+---
+import '../styles/global.css';
+import { ATTRACTION, SITE_NAME } from '../data/site';
+import { NE } from '../content/ne';
+import { EN } from '../content/en';
+import { guides, type GuideKey, type GuideEntry } from '../data/guides';
+import { localizePath, alternates, htmlLang, ogLocale } from '../i18n';
+import type { Locale } from '../i18n';
+import type { HomeContent } from '../content/types';
+import { buildWebsiteSchema, buildBreadcrumbSchema, buildFaqSchema } from '../lib/schema';
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+
+interface Props {
+  locale: Locale;
+  key: GuideKey;
+  entry: GuideEntry;
+}
+const { locale, key, entry } = Astro.props;
+const content: HomeContent = locale === 'ne' ? NE : EN;
+const other: Locale = locale === 'ne' ? 'en' : 'ne';
+const A = ATTRACTION;
+
+const homePath = localizePath(locale, 'home');
+const canonicalURL = Astro.site ? new URL(localizePath(locale, key), Astro.site).toString() : localizePath(locale, key);
+const ogImage = Astro.site ? new URL('/og-card.jpg', Astro.site).toString() : '/og-card.jpg';
+const alts = alternates(key, Astro.site);
+const langSwitchHref = localizePath(other, key);
+
+const websiteSchema = buildWebsiteSchema(Astro.site);
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: A.fullName, url: Astro.site ? new URL(homePath, Astro.site).toString() : homePath },
+  { name: entry.h1, url: canonicalURL ?? homePath },
+]);
+const faqSchema = buildFaqSchema(entry.faq);
+
+const related = (['fee', 'hours', 'reach'] as GuideKey[]).filter((k) => k !== key);
+const relatedLinks = related.map((k) => ({ entry: guides[k][locale], href: localizePath(locale, k) }));
+---
+
+<!doctype html>
+<html lang={htmlLang[locale]}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{entry.title}</title>
+    <meta name="description" content={entry.description} />
+    <meta name="theme-color" content="#071b18" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    {alts.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    <meta property="og:locale:alternate" content={ogLocale[other]} />
+    <meta property="og:title" content={entry.title} />
+    <meta property="og:description" content={entry.description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${A.fullName} in ${A.cityName}, ${A.countryName}`} />
+    {canonicalURL && <meta property="og:url" content={canonicalURL} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={entry.title} />
+    <meta name="twitter:description" content={entry.description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  </head>
+  <body>
+    <SiteHeader locale={locale} content={content} langSwitchHref={langSwitchHref} />
+
+    <main id="top">
+      <section class="relative overflow-hidden pt-28 md:pt-20">
+        <div class="shell pb-12 pt-10 md:pb-16">
+          <nav class="text-xs font-bold uppercase tracking-[.15em] text-water/80" aria-label="breadcrumb">
+            <a class="hover:text-water" href={homePath}>{(locale === 'ne' ? 'मुख्य पृष्ठ' : 'Home')}</a> → {entry.h1}
+          </nav>
+          <p class="mt-6 text-xs font-bold uppercase tracking-[.2em] text-rock/70">{entry.kicker}</p>
+          <h1 class="mt-3 text-[clamp(2.4rem,6vw,4.6rem)] font-black leading-[.98] tracking-[-.03em] text-foam">{entry.h1}</h1>
+          <p class="mt-5 max-w-3xl text-lg leading-8 text-foam/75 md:text-xl">{entry.lead}</p>
+          <p class="mt-3 text-xs font-medium text-foam/45">{entry.updated}</p>
+        </div>
+      </section>
+
+      <section class="border-y border-white/8 bg-black/5 py-16 md:py-20">
+        <div class="shell max-w-4xl space-y-12">
+          {entry.blocks.map((block) => (
+            <div>
+              {block.kicker && <p class="text-xs font-bold uppercase tracking-[.15em] text-water">{block.kicker}</p>}
+              <h2 class="mt-2 text-2xl font-black text-foam md:text-3xl">{block.heading}</h2>
+              <div class="mt-4 space-y-3 text-[15px] leading-7 text-foam/70">
+                {block.body.map((p) => <p>{p}</p>)}
+                {block.bullets && (
+                  <ul class="ml-5 list-disc space-y-2 text-foam/70">
+                    {block.bullets.map((b) => <li>{b}</li>)}
+                  </ul>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="faq" class="py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <span class="kicker">FAQ</span>
+            <h2 class="section-title">{locale === 'ne' ? 'छोटो उत्तर' : 'Short answers'}</h2>
+          </div>
+          <div class="space-y-3">
+            {entry.faq.map((item) => (
+              <details class="card group p-0">
+                <summary class="focus-ring flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-bold">
+                  <span>{item.q}</span><span class="text-2xl font-light text-water transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p class="px-6 pb-6 text-sm leading-7 text-foam/65">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="border-t border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell">
+          <span class="kicker">{locale === 'ne' ? 'सम्बन्धित' : 'Related'}</span>
+          <h2 class="section-title">{locale === 'ne' ? 'अरू पृष्ठहरू' : 'More about the fall'}</h2>
+          <div class="mt-12 grid gap-5 lg:grid-cols-2">
+            {relatedLinks.map((item) => (
+              <a class="card water-line p-7 transition-colors hover:bg-water/5" href={item.href}>
+                <h3 class="text-2xl font-black">{item.entry.h1}</h3>
+                <p class="mt-3 text-sm text-foam/67">{item.entry.lead}</p>
+                <p class="mt-5 text-sm font-bold text-water">→</p>
+              </a>
+            ))}
+          </div>
+          <div class="mt-12">
+            <a class="focus-ring rounded-full border border-water/35 bg-water/10 px-5 py-3 text-sm font-bold text-water hover:bg-water/15" href={`${homePath}#map`}>{(locale === 'ne' ? 'नक्सा र बाटो हेर्नुहोस्' : 'See map & directions')} ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter locale={locale} content={content} />
+  </body>
+</html>

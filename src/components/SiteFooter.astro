@@ -1,0 +1,145 @@
+---
+import { ATTRACTION } from '../data/site';
+import { photos } from '../data/photos';
+import type { HomeContent } from '../content/types';
+
+interface Props {
+  locale: 'ne' | 'en';
+  content: HomeContent;
+}
+const { content } = Astro.props;
+const A = ATTRACTION;
+---
+
+<footer class="border-t border-white/8 py-12">
+  <div class="shell">
+    <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div>
+        <img src="/logo.svg" alt={A.localName} width="246" height="68" class="h-14 w-auto" />
+        <p class="mt-4 text-sm font-black tracking-wide text-foam">{content.footer.tagline}</p>
+        <p class="mt-1 max-w-xl text-sm text-foam/52" set:html={content.footer.disclaimer}></p>
+      </div>
+      <div class="flex flex-wrap gap-x-5 gap-y-3 text-sm text-foam/58">
+        <button class="focus-ring hover:text-water" data-dialog="privacy">{content.footer.privacy}</button>
+        <button class="focus-ring hover:text-water" data-dialog="terms">{content.footer.terms}</button>
+        <button class="focus-ring hover:text-water" data-dialog="credits">{content.footer.credits}</button>
+        <button class="focus-ring hover:text-water" data-dialog="sources">{content.footer.sources}</button>
+        <button class="focus-ring hover:text-water" id="cookie-settings">{content.footer.cookie}</button>
+      </div>
+    </div>
+    <p class="mt-8 border-t border-white/8 pt-6 text-xs leading-5 text-foam/45" set:html={content.footer.copyright}></p>
+  </div>
+</footer>
+
+<div id="cookie-banner" class="cookie-banner fixed bottom-4 left-1/2 z-[70] hidden w-[min(720px,calc(100%-32px))] -translate-x-1/2 rounded-2xl border border-rock/20 bg-cave-soft p-5">
+  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <p class="text-sm text-foam/70"><strong class="text-foam">{content.cookie.text}</strong></p>
+    <div class="flex shrink-0 gap-2">
+      <button id="cookie-deny" class="focus-ring rounded-full border border-rock/20 px-4 py-2 text-sm font-bold">{content.cookie.deny}</button>
+      <button id="cookie-allow" class="focus-ring rounded-full bg-water px-4 py-2 text-sm font-black text-cave">{content.cookie.allow}</button>
+    </div>
+  </div>
+</div>
+
+<dialog id="privacy">
+  <div class="p-7 md:p-9">
+    <div class="flex items-start justify-between gap-5">
+      <div><span class="kicker">{content.dialogs.privacy.kicker}</span><h2 class="mt-2 text-3xl font-black">{content.dialogs.privacy.title}</h2></div>
+      <button class="focus-ring text-2xl text-water" data-close aria-label={content.dialogs.close}>×</button>
+    </div>
+    <div class="mt-6 space-y-4 text-sm text-foam/65">
+      {content.dialogs.privacy.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+</dialog>
+
+<dialog id="terms">
+  <div class="p-7 md:p-9">
+    <div class="flex items-start justify-between gap-5">
+      <div><span class="kicker">{content.dialogs.terms.kicker}</span><h2 class="mt-2 text-3xl font-black">{content.dialogs.terms.title}</h2></div>
+      <button class="focus-ring text-2xl text-water" data-close aria-label={content.dialogs.close}>×</button>
+    </div>
+    <div class="mt-6 space-y-4 text-sm text-foam/65">
+      {content.dialogs.terms.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+</dialog>
+
+<dialog id="credits">
+  <div class="p-7 md:p-9">
+    <div class="flex items-start justify-between gap-5">
+      <div><span class="kicker">{content.dialogs.credits.kicker}</span><h2 class="mt-2 text-3xl font-black">{content.dialogs.credits.title}</h2></div>
+      <button class="focus-ring text-2xl text-water" data-close aria-label={content.dialogs.close}>×</button>
+    </div>
+    <div class="mt-6 space-y-4 text-sm text-foam/65">
+      {photos.map((photo) => <p><a class="font-bold text-water underline decoration-water/30 underline-offset-4" href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a><br /><span>{photo.alt}</span></p>)}
+      <p class="pt-2 text-xs text-rock/65">{content.dialogs.credits.note}</p>
+      <p class="pt-1 text-xs text-rock/65">{content.dialogs.credits.photoNote}</p>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="sources">
+  <div class="p-7 md:p-9">
+    <div class="flex items-start justify-between gap-5">
+      <div><span class="kicker">{content.dialogs.sources.kicker}</span><h2 class="mt-2 text-3xl font-black">{content.dialogs.sources.title}</h2></div>
+      <button class="focus-ring text-2xl text-water" data-close aria-label={content.dialogs.close}>×</button>
+    </div>
+    <div class="mt-6 space-y-3 text-sm text-foam/65">
+      <a class="block font-bold text-water underline decoration-water/30 underline-offset-4" href={A.govtTourismUrl} target="_blank" rel="noopener noreferrer">{A.govtTourismName} ↗</a>
+      <a class="block font-bold text-water underline decoration-water/30 underline-offset-4" href={A.govtTourismUrl2} target="_blank" rel="noopener noreferrer">{A.govtTourismName2} ↗</a>
+      <a class="block font-bold text-water underline decoration-water/30 underline-offset-4" href={A.mapsUrl} target="_blank" rel="noopener noreferrer">{A.fullName} — Google Maps ↗</a>
+      <p class="pt-2">{content.dialogs.sources.note}</p>
+    </div>
+  </div>
+</dialog>
+
+<script is:inline>
+  (() => {
+    if ('serviceWorker' in navigator && window.isSecureContext) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+    }
+    const measurementId = 'G-HXM22WWPKP';
+    const banner = document.getElementById('cookie-banner');
+    let analyticsLoaded = false;
+
+    function loadAnalytics() {
+      if (analyticsLoaded) return;
+      analyticsLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', measurementId, { anonymize_ip: true });
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+      document.head.appendChild(script);
+    }
+
+    function setConsent(value) {
+      localStorage.setItem('analytics-consent', value);
+      banner?.classList.add('hidden');
+      if (value === 'granted') loadAnalytics();
+    }
+
+    const saved = localStorage.getItem('analytics-consent');
+    if (!saved) banner?.classList.remove('hidden');
+    if (saved === 'granted') loadAnalytics();
+    document.getElementById('cookie-allow')?.addEventListener('click', () => setConsent('granted'));
+    document.getElementById('cookie-deny')?.addEventListener('click', () => setConsent('denied'));
+    document.getElementById('cookie-settings')?.addEventListener('click', () => banner?.classList.remove('hidden'));
+
+    document.querySelectorAll('[data-dialog]').forEach((button) => {
+      button.addEventListener('click', () => document.getElementById(button.dataset.dialog)?.showModal());
+    });
+    document.querySelectorAll('[data-close]').forEach((button) => {
+      button.addEventListener('click', () => button.closest('dialog')?.close());
+    });
+    document.querySelectorAll('dialog').forEach((dialog) => {
+      dialog.addEventListener('click', (event) => {
+        const rect = dialog.getBoundingClientRect();
+        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+      });
+    });
+  })();
+</script>

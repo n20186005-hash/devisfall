@@ -1,0 +1,352 @@
+---
+import '../styles/global.css';
+import { ATTRACTION, SITE_NAME } from '../data/site';
+import { NE } from '../content/ne';
+import { EN } from '../content/en';
+import { photos } from '../data/photos';
+import { localizePath, alternates, htmlLang, ogLocale } from '../i18n';
+import type { Locale } from '../i18n';
+import type { HomeContent } from '../content/types';
+import { buildWebsiteSchema, buildAttractionSchema, buildBreadcrumbSchema, buildFaqSchema } from '../lib/schema';
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const content: HomeContent = locale === 'ne' ? NE : EN;
+const other: Locale = locale === 'ne' ? 'en' : 'ne';
+const A = ATTRACTION;
+
+const pagePath = localizePath(locale, 'home');
+const canonicalURL = Astro.site ? new URL(pagePath, Astro.site).toString() : pagePath;
+const ogImage = Astro.site ? new URL('/og-card.jpg', Astro.site).toString() : '/og-card.jpg';
+const heroImage = Astro.site ? new URL('/images/devis-fall-monsoon.jpg', Astro.site).toString() : '/images/devis-fall-monsoon.jpg';
+const alts = alternates('home', Astro.site);
+const langSwitchHref = localizePath(other, 'home');
+
+const websiteSchema = buildWebsiteSchema(Astro.site);
+const attractionSchema = buildAttractionSchema(Astro.site, content.meta.description);
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { name: A.countryName, url: canonicalURL },
+  { name: A.stateName, url: canonicalURL },
+  { name: A.cityName, url: canonicalURL },
+  { name: A.fullName, url: canonicalURL },
+]);
+const faqSchema = buildFaqSchema(content.faq.items);
+
+const experienceIcons = ['≈', '↓'];
+const guideLinks = content.guides.items.map((item) => ({ ...item, href: localizePath(locale, item.key) }));
+---
+
+<!doctype html>
+<html lang={htmlLang[locale]}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{content.meta.title}</title>
+    <meta name="description" content={content.meta.description} />
+    <meta name="theme-color" content="#071b18" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    {alts.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    <meta property="og:locale:alternate" content={ogLocale[other]} />
+    <meta property="og:title" content={content.meta.title} />
+    <meta property="og:description" content={content.meta.description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${A.fullName} in ${A.cityName}, ${A.countryName}`} />
+    {canonicalURL && <meta property="og:url" content={canonicalURL} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={content.meta.title} />
+    <meta name="twitter:description" content={content.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={`${A.fullName} in ${A.cityName}, ${A.countryName}`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  </head>
+  <body>
+    <SiteHeader locale={locale} content={content} langSwitchHref={langSwitchHref} />
+
+    <main id="top">
+      <section class="relative min-h-[810px] overflow-hidden pt-28 md:pt-20">
+        <div class="hero-media absolute inset-0 top-28 md:top-20">
+          <img src={photos[0].src} alt={content.hero.altText} width="1200" height="1800" loading="eager" decoding="async" />
+        </div>
+        <div class="shell relative z-10 flex min-h-[730px] items-end pb-16 pt-28 lg:items-center lg:pb-0">
+          <div class="max-w-3xl">
+            <p class="text-xs font-bold uppercase tracking-[.2em] text-water/90">{content.hero.breadcrumb}</p>
+            <p class="mt-5 text-sm font-bold uppercase tracking-[.22em] text-rock/70">{content.hero.brandLine}</p>
+            <span class="kicker">{content.hero.kicker}</span>
+            <h1 class="mt-3 text-[clamp(3.7rem,10vw,8.6rem)] font-black leading-[.92] tracking-[-.06em] text-foam">{content.hero.titleTop}<br /><span class="text-water">{content.hero.titleBottom}</span></h1>
+            <p class="mt-4 text-xl font-black tracking-tight text-foam/85 md:text-2xl">{content.hero.nameLine}</p>
+            <p class="mt-7 max-w-2xl text-lg leading-8 text-foam/78 md:text-xl">{content.hero.lead}</p>
+            <p class="mt-4 max-w-2xl text-sm font-medium text-foam/58">{content.hero.factsLine}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              {content.hero.pills.map((pill) => <span class="pill">{pill}</span>)}
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 z-10 h-20 bg-gradient-to-t from-cave to-transparent"></div>
+      </section>
+
+      <section id="about" class="border-b border-white/8 py-14 md:py-16">
+        <div class="shell grid gap-8 md:grid-cols-[.9fr_1.1fr] md:items-center">
+          <div>
+            <span class="kicker">{content.about.kicker}</span>
+            <h2 class="section-title mb-0">{content.about.title}<br /><span class="text-water">{content.about.titleAccent}</span></h2>
+          </div>
+          <div class="space-y-4 text-[15px] leading-7 text-foam/70">
+            {content.about.paragraphs.map((p) => <p>{p}</p>)}
+            <dl class="mt-6 grid gap-3 sm:grid-cols-2">
+              {content.about.facts.map((fact) => (
+                <div class="rounded-2xl border border-rock/15 bg-rock/5 p-4">
+                  <dt class="text-xs font-bold uppercase tracking-[.12em] text-water">{fact.label}</dt>
+                  <dd class="mt-1 text-sm text-foam/70">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p class="text-sm text-foam/50">{content.about.nap}</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+          <div>
+            <span class="kicker">{content.experience.kicker}</span>
+            <h2 class="section-title">{content.experience.title}<br /><span class="text-water">{content.experience.titleAccent}</span></h2>
+            <p class="section-copy">{content.experience.copy}</p>
+            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+              {content.experience.cards.map((card, i) => (
+                <div class="card p-5"><div class="icon-bubble">{experienceIcons[i]}</div><h3 class="mt-4 font-bold">{card.title}</h3><p class="mt-2 text-sm text-foam/65">{card.body}</p></div>
+              ))}
+            </div>
+          </div>
+          <div class="flow-diagram card strata" aria-label={content.experience.ariaLabel}>
+            <div class="earth"></div><div class="waterway"></div><div class="shaft"></div><div class="cave"></div>
+            <div class="absolute left-[7%] top-[9%] rounded-full bg-cave/85 px-3 py-2 text-xs font-bold text-water">{content.experience.diagram.inflow}</div>
+            <div class="absolute right-[5%] top-[29%] max-w-36 text-right text-xs font-bold text-foam/70">{content.experience.diagram.drop}</div>
+            <div class="absolute bottom-[5%] right-[8%] text-xs font-bold text-rock/80">{content.experience.diagram.tunnel}</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="plan" class="border-y border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell">
+          <div class="max-w-3xl">
+            <span class="kicker">{content.plan.kicker}</span>
+            <h2 class="section-title">{content.plan.title}<br />{content.plan.titleAccent}</h2>
+          </div>
+          <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            {content.plan.cards.map((card) => (
+              <article class="card water-line p-7">
+                {card.label && <p class="text-xs font-bold tracking-[.15em] text-water">{card.label}</p>}
+                <h3 class="mt-3 text-2xl font-black">{card.title}</h3>
+                {card.list && (
+                  <ul class="mt-5 space-y-2 text-sm text-foam/70">
+                    {card.list.map((li) => <li>{li}</li>)}
+                  </ul>
+                )}
+                {card.body && <p class="mt-5 text-sm text-foam/70">{card.body}</p>}
+                {card.note && <p class="mt-5 text-xs leading-5 text-rock/65">{card.note}</p>}
+              </article>
+            ))}
+          </div>
+
+          <div class="mt-16 grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+            <div>
+              <span class="kicker">{content.plan.orderKicker}</span>
+              <h3 class="mt-4 text-3xl font-black">{content.plan.orderTitle}<br />{content.plan.orderTitleAccent}</h3>
+              <p class="mt-5 text-foam/65">{content.plan.orderCopy}</p>
+            </div>
+            <ol class="timeline space-y-7">
+              {content.plan.steps.map((step) => (
+                <li class="timeline-item"><span class="timeline-dot"></span><p class="text-xs font-bold text-water">{step.tag}</p><h4 class="mt-1 text-xl font-bold">{step.title}</h4><p class="mt-2 text-sm text-foam/60">{step.body}</p></li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 md:py-32">
+        <div class="shell">
+          <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div><span class="kicker">{content.gallery.kicker}</span><h2 class="section-title mb-0">{content.gallery.title}</h2></div>
+            <p class="max-w-md text-sm text-foam/55">{content.gallery.note}</p>
+          </div>
+          <div class="gallery-grid mt-10">
+            <figure class="gallery-frame min-h-[620px]"><img src={photos[0].src} alt={content.gallery.captions[0]} loading="lazy" /><figcaption>{content.gallery.captions[0]}</figcaption></figure>
+            <div class="gallery-stack">
+              <figure class="gallery-frame"><img src={photos[1].src} alt={content.gallery.captions[1]} loading="lazy" /><figcaption>{content.gallery.captions[1]}</figcaption></figure>
+              <figure class="gallery-frame"><img src={photos[2].src} alt={content.gallery.captions[2]} loading="lazy" /><figcaption>{content.gallery.captions[2]}</figcaption></figure>
+            </div>
+          </div>
+          <figure class="gallery-frame mt-4 min-h-[400px]"><img src={photos[3].src} alt={content.gallery.captions[3]} loading="lazy" /><figcaption>{content.gallery.captions[3]}</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="map" class="border-y border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
+          <div>
+            <span class="kicker">{content.map.kicker}</span>
+            <h2 class="section-title">{content.map.title}<br />{content.map.titleAccent}</h2>
+            <div class="mt-8 space-y-4">
+              {content.map.transports.map((t) => (
+                <div class="card p-5"><h3 class="font-bold text-water">{t.title}</h3><p class="mt-2 text-sm text-foam/68">{t.body}</p></div>
+              ))}
+            </div>
+            <div class="mt-7 rounded-2xl border border-rock/15 bg-rock/5 p-5 text-sm text-rock/75">
+              <strong class="text-foam">{content.map.addressLabel}</strong> {A.addressText}<br />
+              <strong class="text-foam">{content.map.phoneLabel}</strong> <a href={`tel:${A.phoneHref}`} class="text-water">{A.phoneDisplay}</a>
+            </div>
+            <p class="mt-4 text-sm text-foam/55">{content.map.note}</p>
+            <div class="mt-5 rounded-2xl border border-rock/15 bg-rock/5 p-5">
+              <p class="text-xs font-bold uppercase tracking-[.15em] text-water">{content.map.sourcesTitle}</p>
+              <p class="mt-3 text-sm leading-6 text-foam/60">{content.map.sourcesNote}<br />
+                <a class="text-water underline decoration-water/30 underline-offset-4" href={A.govtTourismUrl} target="_blank" rel="noopener noreferrer">{A.govtTourismName}</a><br />
+                <a class="text-water underline decoration-water/30 underline-offset-4" href={A.govtTourismUrl2} target="_blank" rel="noopener noreferrer">{A.govtTourismName2}</a>
+              </p>
+            </div>
+          </div>
+          <div class="map-wrap card overflow-hidden">
+            <iframe src={A.mapsEmbedSrc} title={content.map.iframeTitle} allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="flex flex-wrap items-center justify-between gap-3 border-t border-white/8 p-5">
+              <p class="text-sm text-foam/60">{content.map.mapNote}</p>
+              <a href={A.mapsUrl} target="_blank" rel="noopener noreferrer" class="focus-ring rounded-full bg-water px-4 py-2 text-sm font-black text-cave">{content.map.mapCta}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="nearby" class="py-24 md:py-32">
+        <div class="shell">
+          <span class="kicker">{content.nearby.kicker}</span>
+          <h2 class="section-title">{content.nearby.title}</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-3">
+            {content.nearby.cards.map((card) => (
+              <article class="card p-7"><p class="text-xs font-bold text-water">{card.label}</p><h3 class="mt-3 text-2xl font-black">{card.title}</h3><p class="mt-4 text-sm text-foam/67">{card.body}</p></article>
+            ))}
+          </div>
+
+          <div class="mt-16 grid gap-10 lg:grid-cols-[.82fr_1.18fr]">
+            <div>
+              <span class="kicker">{content.nearby.foodKicker}</span>
+              <h3 class="mt-4 text-3xl font-black">{content.nearby.foodTitle}<br />{content.nearby.foodTitleAccent}</h3>
+              <p class="mt-5 text-foam/65">{content.nearby.foodCopy}</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              {content.nearby.foods.map((food) => (
+                <article class="card p-6"><h4 class="text-xl font-bold">{food.title}</h4><p class="mt-2 text-sm text-foam/60">{food.body}</p></article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="strata border-y border-white/8 py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-2">
+          <div>
+            <span class="kicker">{content.history.kicker}</span>
+            <h2 class="section-title">{content.history.title}<br />{content.history.titleAccent}</h2>
+            {content.history.paragraphs.map((p) => <p class="section-copy">{p}</p>)}
+          </div>
+          <div class="card p-8">
+            <p class="text-xs font-bold tracking-[.15em] text-water">{content.history.specTitle}</p>
+            <dl class="mt-6 space-y-6">
+              {content.history.spec.map((s) => (
+                <div><dt class="font-bold">{s.label}</dt><dd class="mt-1 text-sm text-foam/60">{s.value}</dd></div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <span class="kicker">{content.photo.kicker}</span>
+            <h2 class="section-title">{content.photo.title}<br />{content.photo.titleAccent}</h2>
+            <p class="section-copy">{content.photo.copy}</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {content.photo.cards.map((card) => (
+              <div class="card p-6"><p class="text-xs font-bold text-water">{card.label}</p><h3 class="mt-2 text-xl font-black">{card.title}</h3><p class="mt-3 text-sm text-foam/60">{card.body}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="guides" class="border-y border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell">
+          <div class="max-w-3xl">
+            <span class="kicker">{content.guides.kicker}</span>
+            <h2 class="section-title">{content.guides.title}<br />{content.guides.titleAccent}</h2>
+          </div>
+          <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            {guideLinks.map((item) => (
+              <a class="card water-line p-7 transition-colors hover:bg-water/5" href={item.href}>
+                <h3 class="text-2xl font-black">{item.title}</h3>
+                <p class="mt-3 text-sm text-foam/67">{item.body}</p>
+                <p class="mt-5 text-sm font-bold text-water">→</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="border-t border-white/8 bg-black/10 py-24 md:py-32">
+        <div class="shell grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <span class="kicker">{content.faq.kicker}</span>
+            <h2 class="section-title">{content.faq.title}<br />{content.faq.titleAccent}</h2>
+            <p class="section-copy">{content.faq.copy}</p>
+          </div>
+          <div class="space-y-3">
+            {content.faq.items.map((item) => (
+              <details class="card group p-0">
+                <summary class="focus-ring flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-bold">
+                  <span>{item.q}</span><span class="text-2xl font-light text-water transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p class="px-6 pb-6 text-sm leading-7 text-foam/65">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="sources" class="py-14 md:py-20">
+        <div class="shell grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
+          <div>
+            <span class="kicker">{content.sources.kicker}</span>
+            <h2 class="section-title">{content.sources.title}<br /><span class="text-water">{content.sources.titleAccent}</span></h2>
+          </div>
+          <div class="space-y-3 text-sm">
+            <a class="card block p-5 font-bold text-foam hover:text-water" href={A.govtTourismUrl} target="_blank" rel="noopener noreferrer">{A.govtTourismName}<span class="float-right text-water">↗</span></a>
+            <a class="card block p-5 font-bold text-foam hover:text-water" href={A.govtTourismUrl2} target="_blank" rel="noopener noreferrer">{A.govtTourismName2}<span class="float-right text-water">↗</span></a>
+            <a class="card block p-5 font-bold text-foam hover:text-water" href={A.mapsUrl} target="_blank" rel="noopener noreferrer">{A.fullName} on Google Maps<span class="float-right text-water">↗</span></a>
+            <p class="px-2 pt-2 text-xs leading-5 text-rock/70">{content.sources.note}</p>
+            <p class="px-2 pt-1 text-xs leading-5 text-rock/70">{content.sources.photoNote}</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter locale={locale} content={content} />
+  </body>
+</html>

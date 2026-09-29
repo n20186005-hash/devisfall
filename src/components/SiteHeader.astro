@@ -1,0 +1,38 @@
+---
+import { ATTRACTION } from '../data/site';
+import { localizePath } from '../i18n';
+import type { HomeContent } from '../content/types';
+
+interface Props {
+  locale: 'ne' | 'en';
+  content: HomeContent;
+  langSwitchHref: string;
+}
+const { locale, content, langSwitchHref } = Astro.props;
+const A = ATTRACTION;
+const home = localizePath(locale, 'home');
+const navItems = [
+  { label: content.nav.experience, href: `${home}#experience` },
+  { label: content.nav.plan, href: `${home}#plan` },
+  { label: content.nav.nearby, href: `${home}#nearby` },
+  { label: content.nav.map, href: `${home}#map` },
+  { label: content.nav.faq, href: `${home}#faq` },
+];
+---
+<header class="fixed inset-x-0 top-0 z-50 border-b border-white/8 glass">
+  <div class="shell flex h-20 items-center justify-between gap-5">
+    <a href={home} class="focus-ring flex items-center" aria-label={content.hero.altText}>
+      <img src="/logo.svg" alt={A.localName} width="246" height="68" class="h-14 w-auto" />
+    </a>
+    <nav class="hidden items-center gap-7 text-sm text-foam/75 md:flex" aria-label={content.nav.ariaLabel}>
+      {navItems.map((item) => <a class="hover:text-water" href={item.href}>{item.label}</a>)}
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href={langSwitchHref} class="focus-ring hidden rounded-full border border-white/10 px-3 py-2 text-xs font-bold text-foam/70 hover:text-water sm:block">{content.nav.langSwitch}</a>
+      <a href={A.mapsUrl} class="focus-ring rounded-full border border-water/35 bg-water/10 px-4 py-2 text-sm font-bold text-water hover:bg-water/15" target="_blank" rel="noopener noreferrer">{content.nav.directions}</a>
+    </div>
+  </div>
+  <nav class="shell flex gap-6 overflow-x-auto pb-3 text-sm text-foam/70 md:hidden" aria-label={content.nav.mobileAriaLabel}>
+    {navItems.map((item) => <a class="whitespace-nowrap hover:text-water" href={item.href}>{item.label}</a>)}
+  </nav>
+</header>

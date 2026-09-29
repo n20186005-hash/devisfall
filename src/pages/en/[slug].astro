@@ -1,0 +1,14 @@
+---
+import { guides, type GuideKey } from '../../data/guides';
+import { localizePath } from '../../i18n';
+import GuideArticle from '../../components/GuideArticle.astro';
+
+export function getStaticPaths() {
+  return (['fee', 'hours', 'reach'] as GuideKey[]).map((key) => ({
+    params: { slug: localizePath('en', key).replace(/^\/en\//, '').replace(/^\/|\/$/g, '') },
+    props: { locale: 'en' as const, key, entry: guides[key].en },
+  }));
+}
+const { locale, key, entry } = Astro.props;
+---
+<GuideArticle locale={locale} key={key} entry={entry} />
