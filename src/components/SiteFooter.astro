@@ -7,7 +7,7 @@ interface Props {
   locale: 'ne' | 'en';
   content: HomeContent;
 }
-const { content } = Astro.props;
+const { content, locale } = Astro.props;
 const A = ATTRACTION;
 ---
 
@@ -31,7 +31,8 @@ const A = ATTRACTION;
   </div>
 </footer>
 
-<div id="cookie-banner" class="cookie-banner fixed bottom-4 left-1/2 z-[70] hidden w-[min(720px,calc(100%-32px))] -translate-x-1/2 rounded-2xl border border-rock/20 bg-cave-soft p-5">
+<div id="cookie-banner" class="cookie-banner fixed bottom-4 left-1/2 z-[70] hidden w-[calc(100%_-_2rem)] max-w-[720px] max-h-[85dvh] overflow-y-auto -translate-x-1/2 rounded-2xl border border-rock/20 bg-cave-soft p-5">
+  <p id="consent-status" role="status" aria-live="polite" class="mb-3 text-sm text-foam"></p>
   <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
     <p class="text-sm text-foam/70"><strong class="text-foam">{content.cookie.text}</strong></p>
     <div class="flex shrink-0 gap-2">
@@ -49,6 +50,7 @@ const A = ATTRACTION;
     </div>
     <div class="mt-6 space-y-4 text-sm text-foam/65">
       {content.dialogs.privacy.paragraphs.map((p) => <p>{p}</p>)}
+      <p><a href="https://policies.google.com/privacy">Google</a> · <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">{locale === 'ne' ? 'Cloudflare कार्यसम्पादन तथ्याङ्क' : 'Cloudflare performance data'}</a></p>
     </div>
   </div>
 </dialog>
@@ -72,7 +74,7 @@ const A = ATTRACTION;
       <button class="focus-ring text-2xl text-water" data-close aria-label={content.dialogs.close}>×</button>
     </div>
     <div class="mt-6 space-y-4 text-sm text-foam/65">
-      {photos.map((photo) => <p><a class="font-bold text-water underline decoration-water/30 underline-offset-4" href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a><br /><span>{photo.alt}</span></p>)}
+      {photos.map((photo) => <p><a class="font-bold text-water underline decoration-water/30 underline-offset-4" href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a><br /><span>{photo.alt} · {photo.date}</span><br/><a href={photo.licenceUrl} rel="noopener noreferrer">{locale === 'ne' ? 'लाइसेन्सका सर्त' : 'Licence terms'}</a></p>)}
       <p class="pt-2 text-xs text-rock/65">{content.dialogs.credits.note}</p>
       <p class="pt-1 text-xs text-rock/65">{content.dialogs.credits.photoNote}</p>
     </div>
@@ -94,52 +96,22 @@ const A = ATTRACTION;
   </div>
 </dialog>
 
-<script is:inline>
-  (() => {
-    if ('serviceWorker' in navigator && window.isSecureContext) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
-    }
-    const measurementId = 'G-HXM22WWPKP';
-    const banner = document.getElementById('cookie-banner');
-    let analyticsLoaded = false;
-
-    function loadAnalytics() {
-      if (analyticsLoaded) return;
-      analyticsLoaded = true;
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag('js', new Date());
-      window.gtag('config', measurementId, { anonymize_ip: true });
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
-      document.head.appendChild(script);
-    }
-
-    function setConsent(value) {
-      localStorage.setItem('analytics-consent', value);
-      banner?.classList.add('hidden');
-      if (value === 'granted') loadAnalytics();
-    }
-
-    const saved = localStorage.getItem('analytics-consent');
-    if (!saved) banner?.classList.remove('hidden');
-    if (saved === 'granted') loadAnalytics();
-    document.getElementById('cookie-allow')?.addEventListener('click', () => setConsent('granted'));
-    document.getElementById('cookie-deny')?.addEventListener('click', () => setConsent('denied'));
-    document.getElementById('cookie-settings')?.addEventListener('click', () => banner?.classList.remove('hidden'));
-
-    document.querySelectorAll('[data-dialog]').forEach((button) => {
-      button.addEventListener('click', () => document.getElementById(button.dataset.dialog)?.showModal());
+<script>
+  import { initAnalytics } from '../lib/analytics';
+  initAnalytics('G-HXM22WWPKP');
+  if ('serviceWorker' in navigator && window.isSecureContext) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+  }
+  document.querySelectorAll<HTMLButtonElement>('[data-dialog]').forEach(button => {
+    button.addEventListener('click', () => (document.getElementById(button.dataset.dialog || '') as HTMLDialogElement | null)?.showModal());
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-close]').forEach(button => {
+    button.addEventListener('click', () => button.closest<HTMLDialogElement>('dialog')?.close());
+  });
+  document.querySelectorAll<HTMLDialogElement>('dialog').forEach(dialog => {
+    dialog.addEventListener('click', event => {
+      const rect = dialog.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
     });
-    document.querySelectorAll('[data-close]').forEach((button) => {
-      button.addEventListener('click', () => button.closest('dialog')?.close());
-    });
-    document.querySelectorAll('dialog').forEach((dialog) => {
-      dialog.addEventListener('click', (event) => {
-        const rect = dialog.getBoundingClientRect();
-        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
-      });
-    });
-  })();
+  });
 </script>

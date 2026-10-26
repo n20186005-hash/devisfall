@@ -34,10 +34,7 @@ export function absoluteUrl(locale: Locale, key: PageKey, site: URL | undefined)
   return new URL(paths[locale][key], site).toString();
 }
 
-/**
- * x-default 指向英文版：GSC 显示曝光查询几乎全部为英文（devi's falls pokhara nepal 等），
- * 未匹配语区的用户应落到英文页。
- */
+/** English is the existing language-neutral fallback; pairs retain their own canonical URLs. */
 export function alternates(key: PageKey, site: URL | undefined) {
   if (!site) return [];
   return [

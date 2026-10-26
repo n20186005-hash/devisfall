@@ -20,7 +20,6 @@ html { scroll-behavior: smooth; background: var(--color-cave); }
 body {
   margin: 0;
   min-width: 320px;
-  overflow-x: hidden;
   background:
     radial-gradient(circle at 10% -10%, rgb(116 216 207 / .13), transparent 34rem),
     linear-gradient(180deg, #071b18 0%, #081f1c 48%, #061714 100%);
@@ -128,3 +127,11 @@ dialog::backdrop { background:rgb(0 0 0 / .72); backdrop-filter: blur(6px); }
   html { scroll-behavior:auto; }
   *, *::before, *::after { transition:none !important; animation:none !important; }
 }
+
+/* Legible Devanagari headings and shrinkable content inside the existing layout. */
+html[lang="ne"] h1, html[lang="ne"] h2 { line-height: 1.35; }
+.shell > *, .info-card, .source-card { min-width: 0; }
+iframe { max-width: 100%; }
+
+/* Keep mixed-script addresses and long tokens within the guide body. */
+.guide-prose { min-width: 0; overflow-wrap: anywhere; }

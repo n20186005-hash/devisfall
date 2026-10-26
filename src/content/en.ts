@@ -1,261 +1,377 @@
-import { ATTRACTION } from '../data/site';
-import type { HomeContent } from './types';
-
-const A = ATTRACTION;
-
+import type { HomeContent } from "./types";
 export const EN: HomeContent = {
-  locale: 'en',
-  meta: {
-    title: `Devi’s Fall Pokhara Nepal: Timings, Ticket Price & How to Reach`,
-    description: `${A.fullName} (${A.localName} / ${A.romanName}), ${A.countryName}: opening hours ${A.hours.textEn}, entry fee ${A.tickets.rangeEn}, 30–45 min visit, how to reach from Lakeside, best time to go & nearby ${A.nearby1}.`,
+  "locale": "en",
+  "meta": {
+    "title": "Devi’s Fall Pokhara: temporary-closure listing & visitor guide",
+    "description": "Devi’s Fall / Patale Chhango: dated temporary-closure listing, unconfirmed reopening and admission, location in Chhorepatan, natural history and separate cave planning."
   },
-  nav: {
-    experience: 'The Fall',
-    plan: 'Plan your visit',
-    nearby: 'Nearby',
-    map: 'Map',
-    faq: 'FAQ',
-    sources: 'Sources',
-    directions: 'Get directions ↗',
-    ariaLabel: 'Main navigation',
-    mobileAriaLabel: 'Mobile navigation',
-    langSwitch: 'नेपाली',
+  "nav": {
+    "experience": "The Fall",
+    "plan": "Plan your visit",
+    "nearby": "Nearby",
+    "map": "Map",
+    "faq": "FAQ",
+    "sources": "Sources",
+    "directions": "Get directions ↗",
+    "ariaLabel": "Main navigation",
+    "mobileAriaLabel": "Mobile navigation",
+    "langSwitch": "नेपाली"
   },
-  hero: {
-    breadcrumb: `Nepal → ${A.stateName} → ${A.cityName} → ${A.fullName}`,
-    brandLine: `${A.fullName} · ${A.localName} · ${A.romanName} · Travel Guide`,
-    kicker: `${A.cityName} · Chhorepatan`,
-    titleTop: 'Devi’s',
-    titleBottom: 'Fall',
-    nameLine: `${A.fullName} (${A.localName} / ${A.romanName}) — ${A.cityName}, ${A.countryName}`,
-    lead: `The Pardi Khola stream drops into a deep rock gorge, vanishes before your eyes and follows an underground channel — one of Pokhara’s most unusual water-and-rock landscapes.`,
-    factsLine: `${A.fullName} (${A.localName} / ${A.romanName}) — the ${A.cityName} waterfall that disappears into a narrow gorge and runs on underground. Open ${A.hours.textEn}, entry ${A.tickets.rangeEn}, a 30–45 minute visit, and ${A.nearby1} just across the road.`,
-    pills: [
-      `◷ Hours ${A.hours.textEn}`,
-      '⌛ 30–45 min',
-      '☂ Best in monsoon / post-monsoon',
-      `★ ${A.ratingNote}`,
+  "hero": {
+    "breadcrumb": "Nepal → Gandaki Province → Pokhara → Devi’s Fall Pokhara",
+    "brandLine": "Devi’s Fall Pokhara · पाताले छाँगो · Patale Chhango · Travel Guide",
+    "kicker": "Pokhara · Chhorepatan",
+    "titleTop": "Devi’s",
+    "titleBottom": "Fall",
+    "nameLine": "Devi’s Fall Pokhara (पाताले छाँगो / Patale Chhango) — Pokhara, Nepal",
+    "lead": "Water from the Phewa Lake drainage drops into a rocky gorge and continues underground. Learn about the landscape while checking current access before planning a journey.",
+    "factsLine": "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified.",
+    "pills": [
+      "Maps: temporarily closed · 26 Oct 2026",
+      "Reopening unconfirmed",
+      "4.0/5 · 21,540 external reviews"
     ],
-    altText: `${A.fullName} — Main view in ${A.cityName}, ${A.countryName}`,
+    "altText": "Historic photograph of Devi’s Fall, Pokhara"
   },
-  about: {
-    kicker: 'ABOUT THE FALL',
-    title: `About ${A.fullName}`,
-    titleAccent: `(${A.localName} / ${A.romanName})`,
-    paragraphs: [
-      `Welcome to ${A.fullName}, widely recognized as the central ${A.romanName} (${A.localName}). Located in ${A.cityName}, ${A.stateName}, ${A.countryName}, it is one of the city’s most visited natural landmarks for travellers exploring the Phewa Lake region. The English name is also written “Devi’s Falls” or “Davis Falls”.`,
-      `The Pardi Khola stream drops into a narrow rock gorge and continues through an underground channel, which is why the Nepali name पाताले छाँगो is often translated as “the fall that goes to the underworld”. Nearby you can easily combine ${A.nearby1}, ${A.nearby2} and ${A.nearby3}.`,
+  "about": {
+    "kicker": "ABOUT THE FALL",
+    "title": "About Devi’s Fall Pokhara",
+    "titleAccent": "(पाताले छाँगो / Patale Chhango)",
+    "paragraphs": [
+      "Devi’s Fall, Davis Falls and Patale Chhango refer to the waterfall in Chhorepatan, Pokhara. Nepal Tourism Board identifies the Phewa Lake drainage as its source and describes its path through rocks, caves and tunnels.",
+      "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified."
     ],
-    facts: [
-      { label: 'Opening hours / timings', value: `Daily about ${A.hours.textEn} — confirm at the counter on public holidays and during the monsoon.` },
-      { label: 'Entry fee / ticket price', value: `NPR 30 Nepali students · NPR 50 Nepali citizens · NPR 150 foreign visitors (municipal rate structure).` },
-      { label: 'How to reach', value: `About 10–15 minutes by taxi from Lakeside; local buses/micros run toward Chhorepatan on the Siddhartha Highway.` },
-      { label: 'Best time to visit', value: 'Monsoon and post-monsoon for the strongest flow; dry season shows the rock strata clearly. Mornings are quieter.' },
-      { label: 'Time needed', value: '30–45 minutes for the fall; 1.5–2 hours combined with Gupteshwor Mahadev Cave.' },
-      { label: 'Address & phone', value: `${A.addressText} · ${A.phoneDisplay}` },
-    ],
-    nap: `NAP · ${A.fullName} — ${A.addressText} — ${A.phoneDisplay} · listing rating ${A.rating}/5 (${A.reviewCount} reviews, Google Maps, Sept 2026, indicative only).`,
-  },
-  experience: {
-    kicker: 'What makes it different',
-    title: 'Not a fall that drops down,',
-    titleAccent: 'but one that goes underground.',
-    copy: `Water from the Phewa Lake area flows toward the Pardi Khola and enters a narrow rock gorge here. The surface waterfall disappears into an underground waterway within moments — this geography is what sets पाताले छाँगो apart from an ordinary “scenic fall”.`,
-    cards: [
-      { title: 'Rock strata', body: 'Erosion-cut layers, a narrow gorge and a deep cavity are the main visual elements.' },
-      { title: 'Hidden waterway', body: 'The water vanishes from the surface and continues through a natural tunnel-like underground passage.' },
-    ],
-    diagram: { inflow: 'Pardi Khola inflow', drop: 'Steep drop through the narrow gorge', tunnel: 'Natural underground passage' },
-    ariaLabel: 'Schematic of water going from the surface into the underground passage',
-  },
-  plan: {
-    kicker: 'Plan your visit',
-    title: 'Turn a short stop',
-    titleAccent: 'into the full experience',
-    cards: [
+    "facts": [
       {
-        label: 'Ticket / fee',
-        title: A.tickets.range,
-        list: [`Nepali students: ${A.tickets.student}`, `Nepali citizens: ${A.tickets.citizen}`, `Foreign visitors: ${A.tickets.foreign}`],
-        note: 'Published municipal rate structure. Confirm the current rate and any concession at the counter before you buy.',
+        "label": "Current access",
+        "value": "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified."
       },
       {
-        label: 'Good time / stay',
-        title: '30–45 min',
-        body: 'Enough to see the fall itself. Allow 1.5–2 hours if you also add Gupteshwor Mahadev Cave. The flow is strongest during and just after the monsoon; the dry season reveals the rock layers clearly.',
+        "label": "Hours and admission",
+        "value": "No current opening hours, fee or reopening date has been independently confirmed. The former daily timetable is not a current promise."
       },
       {
-        label: 'Parking',
-        title: 'Expect limited space',
-        body: 'Some local/roadside parking may be found near the main entrance, but it fills up when busy. Do not block the gate or traffic; ask on site about fees and availability.',
+        "label": "Location",
+        "value": "Chhorepatan, H10, Pokhara; map place point 28.1895642, 83.9586637."
       },
+      {
+        "label": "Photographs",
+        "value": "The four photographs show scenes from 2013 and 2018; they do not establish present water flow or access."
+      },
+      {
+        "label": "Separate attraction",
+        "value": "Gupteshwar Mahadev Cave is described by NTB on the other side of the fall; its own opening or ticket sales do not prove waterfall access."
+      }
     ],
-    orderKicker: 'Recommended order',
-    orderTitle: 'First from the top,',
-    orderTitleAccent: 'then the cave below',
-    orderCopy: 'After seeing the surface gorge, crossing to Gupteshwor Mahadev Cave on the other side makes it easy to understand the same water system from two different angles.',
-    steps: [
-      { tag: '01 · Entry', title: 'To the main viewing area with your ticket', body: 'In the first view, note the width of the gorge, the speed of the water and the safe angle of the railing.' },
-      { tag: '02 · The fall', title: 'Depth from the angled railing', body: 'In the monsoon the spray and noise are intense; keep your phone/camera secure.' },
-      { tag: '03 · Garden / photos', title: 'Frame from the less crowded edge', body: 'Without crossing the railing, keep the rock layers, vegetation and white water in one frame.' },
-      { tag: '04 · Gupteshwor Cave', title: 'Underground view across the road', body: 'The cave is a separate ticketed site. The floor can be slippery in the monsoon, and photo rules apply in the religious section.' },
-    ],
+    "nap": "Devi’s Fall Pokhara · Chhorepatan, H10, Pokhara 33700. Google Maps listing: +9779805889741, 4.0/5 and 21,540 reviews checked 26 October 2026; contact not independently verified as management."
   },
-  gallery: {
-    kicker: 'Scenes',
-    title: 'Water, rock and a dark gorge',
-    note: 'Photos are from the actual site. Image credits and licences are listed below in “Photo credits”.',
-    captions: [
-      'The flow is most dramatic during the monsoon.',
-      'In the dry season the rock layers and narrow channel are clearer.',
-      'Water leaves the surface and enters the underground passage through the narrow gorge.',
-      'From the lower part of Gupteshwor Mahadev Cave you can see the watercourse from another angle.',
+  "experience": {
+    "kicker": "What makes it different",
+    "title": "Not a fall that drops down,",
+    "titleAccent": "but one that goes underground.",
+    "copy": "NTB describes water from Phewa Lake cutting through rocks into caves and tunnels. This diagram explains that general relationship; it is not a measured underground survey or an invitation to enter the watercourse.",
+    "cards": [
+      {
+        "title": "Rock strata",
+        "body": "Erosion-cut layers, a narrow gorge and a deep cavity are the main visual elements."
+      },
+      {
+        "title": "Hidden waterway",
+        "body": "The water vanishes from the surface and continues through a natural tunnel-like underground passage."
+      }
     ],
-  },
-  map: {
-    kicker: 'Getting there in detail',
-    title: 'The easiest way',
-    titleAccent: 'to reach Chhorepatan',
-    addressLabel: 'Address:',
-    phoneLabel: 'Phone:',
-    transports: [
-      { title: 'From Lakeside', body: 'A taxi or ride is the most direct option and usually takes about 10–15 minutes depending on traffic; tell the driver “पाताले छाँगो, Chhorepatan / Devi’s Fall”.' },
-      { title: 'Local bus', body: 'Buses or micros heading along the Siddhartha Highway toward Chhorepatan also stop near the falls — confirm the “Devi’s Fall / पाताले छाँगो” stop with the conductor before boarding.' },
-      { title: 'Scooter / motorcycle', body: 'Enter Chhorepatan via H10 / the Siddhartha Highway. Avoid irregular parking right at the entrance when it is busy.' },
-    ],
-    note: `Location & how to visit ${A.shortName} in ${A.cityName}: the waterfall and ${A.nearby1} stand opposite each other on H10, about 10–15 minutes by taxi from Lakeside, ${A.cityName}.`,
-    mapNote: 'The map is set to the Nepali language / Nepal region.',
-    mapCta: 'Open in Google Maps ↗',
-    iframeTitle: 'Map of पाताले छाँगो',
-    sourcesTitle: 'Official Sources',
-    sourcesNote: 'For official updates and regional tourism information, visit',
-  },
-  nearby: {
-    kicker: 'Nearby',
-    title: 'Where to go after the fall?',
-    cards: [
-      { label: 'Across the road', title: 'Gupteshwor Mahadev Cave', body: 'A combination of Shiva temple and natural cave. From the lower section you can glimpse the watercourse linked to the fall; separate ticket.' },
-      { label: 'Pokhara city', title: 'International Mountain Museum', body: 'Useful for understanding the Himalaya, climbing culture and Nepal’s mountain communities — ties in well with the fall’s natural theme.' },
-      { label: 'Hill view', title: 'World Peace Pagoda', body: 'A popular high point for wide views of Phewa Lake and Pokhara; another good stop after the fall on a clear day.' },
-    ],
-    foodKicker: 'Food nearby',
-    foodTitle: 'Grab a light bite',
-    foodTitleAccent: 'right in Chhorepatan',
-    foodCopy: 'There are cafés and local food options around the fall. Larger restaurants are more common in Lakeside, but these nearby names are handy for a short trip.',
-    foods: [
-      { title: 'Brew Patan', body: 'A convenient café near Chhorepatan for coffee, tea and light snacks.' },
-      { title: 'Little Tibet Cafe & Gift Shop', body: 'Tibetan flavours, tea and a small rest in a local setting.' },
-    ],
-  },
-  history: {
-    kicker: 'History & local meaning',
-    title: 'A story in the name,',
-    titleAccent: 'reality in the geography',
-    paragraphs: [
-      `The Nepali name “पाताले छाँगो” directly expresses the feeling of water disappearing toward the underworld. The local tourism account linked to the English name “Davis/Devi’s Fall” mentions an accident involving a Swiss tourist around 1961; the spelling and the story vary by source.`,
-      `Today the site is one of Pokhara’s signature natural attractions. Its cultural value is not only in the accident story — it lies in how water, rock, cave and the nearby Gupteshwor Mahadev religious site join into a single landscape.`,
-    ],
-    specTitle: 'Landscape / “architecture” character',
-    spec: [
-      { label: 'Main natural feature', value: 'A narrow rock gorge, erosion-opened layers, a steep drop and an underground waterway.' },
-      { label: 'Human-made parts', value: 'Safety railing, viewing area and small public-garden-style support structures.' },
-      { label: 'Key caution', value: 'The water’s force can be stronger than expected. Do not cross the railing, climb wet rock or enter closed sections.' },
-    ],
-  },
-  photo: {
-    kicker: 'Photo tips',
-    title: 'Keep the spray,',
-    titleAccent: 'show the depth',
-    copy: 'From the safe railing, an angled frame puts rock in front, white water in the middle and the green edge behind. On cloudy days, lower the exposure a little to keep the white-water detail.',
-    cards: [
-      { label: 'Main angle', title: 'Angled view from above', body: 'Best for showing the shape of the gorge and where the water disappears in one frame.' },
-      { label: 'Monsoon', title: 'Carry a lens cloth', body: 'Spray can wet the lens in moments; a phone strap is also useful.' },
-      { label: 'Cave', title: 'Religious-area rules', body: 'Gupteshwor may have no-photo or limited sections; follow the site signs and staff instructions.' },
-      { label: 'Stay', title: 'Use Lakeside as base', body: 'Most travellers find Lakeside convenient for hotels, food and transport; for a quiet local stay, look toward Chhorepatan.' },
-    ],
-  },
-  faq: {
-    kicker: 'FAQ',
-    title: 'Before you go,',
-    titleAccent: 'short answers',
-    copy: 'Times and fees can change with weather, festivals or local management; confirming uncertain details on site is the safest approach.',
-    items: [
-      { q: 'What are Devi’s Fall Pokhara opening hours (timings)?', a: `Most visitor listings show ${A.fullName} (${A.localName}) open daily from about ${A.hours.textEn}. Hours can shift with weather, festivals or local management, so confirm the day’s timing at the ticket counter before you set out.` },
-      { q: 'How much is the Devi’s Fall entry fee / ticket price?', a: `Devi’s Fall is ticketed. The published municipal rate structure is NPR 30 for Nepali students, NPR 50 for Nepali citizens and NPR 150 for foreign visitors. Rates can change—check the current price at the counter and carry ID for any concession.` },
-      { q: 'Is there an entrance fee for Devi’s Fall Pokhara?', a: `Yes. The municipal rate structure lists NPR 30 for Nepali students, NPR 50 for Nepali citizens and NPR 150 for foreign visitors; please confirm current rates at the ticket counter.` },
-      { q: 'How do I get to Devi’s Fall from Pokhara Lakeside?', a: 'A taxi or ride is the most direct option and usually takes about 10–15 minutes depending on traffic; ask for “पाताले छाँगो / Devi’s Fall, Chhorepatan”. Local buses and micros heading along the Siddhartha Highway toward Chhorepatan also stop near the falls—confirm the stop with the conductor before boarding.' },
-      { q: 'What is the best time to visit Devi’s Fall?', a: 'Flow is strongest during and just after the monsoon (roughly June–September), when the fall looks most dramatic; the dry season reveals the eroded rock layers and the narrow gorge more clearly. Mornings are usually less crowded, and railings, stones and the cave area can be slippery in rain, so wear shoes with grip.' },
-      { q: 'How long does a visit to Devi’s Fall take?', a: 'Around 30–45 minutes is enough for the waterfall itself. Allow 1.5–2 hours if you also visit Gupteshwor Mahadev Cave across the road, which has separate ticketing.' },
-      { q: 'Is Devi’s Fall the same as Davis Falls or Devi’s Falls?', a: `Yes. All three spellings refer to the same waterfall in ${A.cityName}: ${A.localName} (${A.romanName}) in Nepali, and “Davis/Devi’s Fall(s)” in English. The spelling varies by source, and local tourism accounts connect the name to a 1960s incident involving a foreign visitor.` },
-      { q: 'Is Gupteshwor Mahadev Cave included in the Devi’s Fall ticket?', a: 'No. The cave sits across the road and is a separate attraction with its own entry arrangement. The two are easy to combine in one trip, so most visitors see the fall first and then the cave.' },
-      { q: 'Where is Devi’s Fall Pokhara (पाताले छाँगो) located?', a: `${A.fullName} (${A.localName} / ${A.romanName}) is on H10 road in Chhorepatan, ${A.cityName}, ${A.stateName} 33700, ${A.countryName} (plus code ${A.plusCode}), beside ${A.nearby1} and about 10–15 minutes by taxi from Lakeside.` },
-      { q: 'Is Devi’s Fall suitable for children or elderly visitors?', a: 'The main viewing area is not very difficult, but there can be crowds, wet surfaces and some uneven paths. Do not leave the railing and take extra care in the monsoon.' },
-      { q: 'Where is the best spot for photos?', a: 'From the angled railing you get the gorge and the water’s depth in one frame. Carry a lens cloth in the monsoon (spray is heavy) and follow the cave’s photo rules in the religious section.' },
-    ],
-  },
-  guides: {
-    kicker: 'Read more',
-    title: 'Pages about',
-    titleAccent: 'the fall',
-    items: [
-      { key: 'fee', title: 'Entry fee & tickets', body: 'Nepali/foreign rates, concessions and how to confirm at the counter.' },
-      { key: 'hours', title: 'Opening hours & best season', body: 'Daily timing, monsoon vs dry differences and morning tips for photos.' },
-      { key: 'reach', title: 'How to reach from Lakeside', body: 'Taxi, local bus and scooter — route and time.' },
-    ],
-  },
-  sources: {
-    kicker: 'Sources',
-    title: 'Where the info comes from',
-    titleAccent: 'Official references',
-    note: `Map, timing, fee and NAP details are reconciled from ${A.cityName} metropolitan / tourism-promotion sources and the Google Maps listing. Confirm on site before you travel.`,
-    photoNote: 'Image rights: all images on this site remain the property of the original photographers. तस्बिर श्रेय र लाइसेन्स “तस्बिर श्रेय” विन्डोमा उपलब्ध छ।',
-  },
-  footer: {
-    tagline: `${A.fullName} · ${A.localName}`,
-    disclaimer: `${A.addressText}<br /><a href="tel:${A.phoneHref}" class="text-water">${A.phoneDisplay}</a>`,
-    privacy: 'Privacy',
-    terms: 'Terms of use',
-    credits: 'Photo credits',
-    sources: 'Sources',
-    cookie: 'Cookie settings',
-    copyright: `This website is an independent travel-information project and is not the official site of पाताले छाँगो, Pokhara Metropolitan or any government/authority. All image ownership and copyright belong to the original photographers.<br />© 2026 ${'Devi’s Fall Pokhara — Travel Guide'} (पाताले छाँगो) — independent travel guide · For official tourism information visit the Nepal Tourism Board — Pokhara.`,
-  },
-  dialogs: {
-    close: 'Close',
-    privacy: {
-      kicker: 'Privacy',
-      title: 'Your data',
-      paragraphs: [
-        'This static information site has no accounts, login or its own database. No personal details are collected through a form.',
-        'When you open Google Maps or use the embedded map, Google’s own privacy terms apply. GA4 analytics loads only after you click “Accept”.',
-        'Your cookie choice is stored in your browser’s local storage and can be changed again via “Cookie settings”.',
-      ],
+    "diagram": {
+      "inflow": "Phewa drainage · schematic",
+      "drop": "Steep drop through the narrow gorge",
+      "tunnel": "Natural underground passage"
     },
-    terms: {
-      kicker: 'Terms of use',
-      title: 'Travel information',
-      paragraphs: [
-        'Times, tickets, parking, weather and accessibility can change with local management. Confirm at the site/counter before making travel decisions.',
-        'Following safety railings, signs, staff instructions and religious-site rules is the user’s responsibility.',
-        'External map or image sources are governed by their respective providers’ terms.',
-      ],
-    },
-    credits: {
-      kicker: 'Photo credits',
-      title: 'Photos from the actual site',
-      note: 'For the web, images may be resized/cropped; the original licence’s attribution/share-alike terms still apply.',
-      photoNote: 'Image rights: all images on this site remain the property of the original photographers.',
-    },
-    sources: {
-      kicker: 'Sources',
-      title: 'Official information',
-      note: `Map, timing, fee and NAP details are taken from ${A.cityName} city’s tourism-promotion sources and the Google Maps listing. Decisions about पाताले छाँगो management or fees are solely those of the relevant authority.`,
-    },
+    "ariaLabel": "Schematic of water going from the surface into the underground passage"
   },
-  cookie: {
-    text: 'Analytics cookies: your consent is needed to use GA4 for site improvement. The site works fully even if you decline.',
-    deny: 'Essential only',
-    allow: 'Accept',
+  "plan": {
+    "kicker": "Plan your visit",
+    "title": "Check access first,",
+    "titleAccent": "then decide your route",
+    "cards": [
+      {
+        "label": "Access",
+        "title": "Temporary closure listed",
+        "body": "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified.",
+        "note": "A third-party listing, not a management explanation."
+      },
+      {
+        "label": "Fees and time",
+        "title": "Confirm before travelling",
+        "body": "Do not rely on old ticket rates or an old 06:00–18:00 timetable. No current admission offer or reopening has been verified."
+      },
+      {
+        "label": "Parking and assistance",
+        "title": "Arrangements unconfirmed",
+        "body": "Dedicated parking, accessible routes and assistance have not been confirmed for a current visit. Ask the responsible site management before making transport arrangements."
+      }
+    ],
+    "orderKicker": "Recommended order",
+    "orderTitle": "Prepare a conditional plan,",
+    "orderTitleAccent": "without assuming entry",
+    "orderCopy": "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified.",
+    "steps": [
+      {
+        "tag": "01",
+        "title": "Verify access",
+        "body": "Seek a current management confirmation, including the date and the areas actually open."
+      },
+      {
+        "tag": "02",
+        "title": "Choose transport",
+        "body": "Use the exact waterfall map point; agree on route, fare and return arrangements instead of assuming a short fixed journey."
+      },
+      {
+        "tag": "03",
+        "title": "Respect barriers",
+        "body": "If closed, do not enter. For any permitted visit, obey signs and keep away from wet rock, water edges and restricted sections."
+      },
+      {
+        "tag": "04",
+        "title": "Check other sites separately",
+        "body": "Cave, museum or pagoda access and tickets must be checked independently; no combined visit or admission is guaranteed."
+      }
+    ]
   },
-  homeLink: 'Home',
+  "gallery": {
+    "kicker": "Scenes",
+    "title": "Water, rock and a dark gorge",
+    "note": "Historical scenes,2013/2018. Flow and access vary; these photographs are not a live status report. See individual authors, dates and licences in Photo credits.",
+    "captions": [
+      "Monsoon scene photographed 28 July 2013; not present flow.",
+      "Rock-gorge scene photographed 16 May 2018.",
+      "Rock channel photographed 25 November 2018.",
+      "View from Gupteshwor Cave photographed 17 January 2013; not a promise of access or a present view."
+    ]
+  },
+  "map": {
+    "kicker": "Getting there in detail",
+    "title": "Locate the waterfall,",
+    "titleAccent": "confirm access before travel",
+    "addressLabel": "Address:",
+    "phoneLabel": "Maps-listed phone, unverified:",
+    "transports": [
+      {
+        "title": "Taxi or ride",
+        "body": "Ask for Devi’s Fall / Patale Chhango in Chhorepatan. Confirm current access first, then agree on route, price, luggage needs and return pickup. No fixed journey time is promised."
+      },
+      {
+        "title": "Public transport",
+        "body": "Check a current service and stop with the operator before boarding; this guide has not verified a present bus timetable or fare."
+      },
+      {
+        "title": "Independent travel",
+        "body": "Review the actual route and permitted drop-off or parking. A map pin identifies the destination but does not establish an open gate or safe access."
+      }
+    ],
+    "note": "Map place point 28.1895642, 83.9586637. The listed phone is from Maps; management identity and current response have not been verified.",
+    "mapNote": "The map is set to the Nepali language / Nepal region.",
+    "mapCta": "Open in Google Maps ↗",
+    "iframeTitle": "Map of पाताले छाँगो",
+    "sourcesTitle": "Source scope",
+    "sourcesNote": "NTB describes the destination; it does not publish a current reopening notice here."
+  },
+  "nearby": {
+    "kicker": "Nearby",
+    "title": "Other destinations to check separately",
+    "cards": [
+      {
+        "label": "Across the road",
+        "title": "Gupteshwor Mahadev Cave",
+        "body": "A separate destination to consider only after checking its own opening, ticket and mobility arrangements. Its availability does not confirm access to the waterfall."
+      },
+      {
+        "label": "Pokhara city",
+        "title": "International Mountain Museum",
+        "body": "A separate destination to consider only after checking its own opening, ticket and mobility arrangements. Its availability does not confirm access to the waterfall."
+      },
+      {
+        "label": "Hill view",
+        "title": "World Peace Pagoda",
+        "body": "A separate destination to consider only after checking its own opening, ticket and mobility arrangements. Its availability does not confirm access to the waterfall."
+      }
+    ],
+    "foodKicker": "Food nearby",
+    "foodTitle": "Grab a light bite",
+    "foodTitleAccent": "right in Chhorepatan",
+    "foodCopy": "No current cafés, menus or opening hours have been verified by this guide. Select a meal stop only after checking its address, dietary suitability, price and transport.",
+    "foods": [
+      {
+        "title": "Before choosing a venue",
+        "body": "Confirm the actual address and whether it is open on your date."
+      },
+      {
+        "title": "Match your needs",
+        "body": "Ask about dietary needs and plan the return journey; no named venue is endorsed here."
+      }
+    ]
+  },
+  "history": {
+    "kicker": "History & local meaning",
+    "title": "A story in the name,",
+    "titleAccent": "reality in the geography",
+    "paragraphs": [
+      "Nepal Tourism Board describes the local name Patale Chhango and connects the English name with a Swiss woman swept away in1961. Treat the account as attributed history; spellings vary and this guide does not establish a more precise event date.",
+      "NTB links the waterfall’s Phewa Lake source with caves and tunnels, including Gupteshwar on the other side. This geographical description and historical photos do not establish present admission."
+    ],
+    "specTitle": "Landscape / “architecture” character",
+    "spec": [
+      {
+        "label": "Main natural feature",
+        "value": "A narrow rock gorge, erosion-opened layers, a steep drop and an underground waterway."
+      },
+      {
+        "label": "Human-made parts",
+        "value": "Historic photographs show viewing structures; their present condition and availability must be confirmed."
+      },
+      {
+        "label": "Key caution",
+        "value": "The water’s force can be stronger than expected. Do not cross the railing, climb wet rock or enter closed sections."
+      }
+    ]
+  },
+  "photo": {
+    "kicker": "Photo tips",
+    "title": "Keep the spray,",
+    "titleAccent": "show the depth",
+    "copy": "The photographs explain possible compositions, not current access or flow. Do not seek a photo from a closed or restricted area. If admission is later confirmed, follow barriers and site photography rules.",
+    "cards": [
+      {
+        "label": "Main angle",
+        "title": "Angled view from above",
+        "body": "For a confirmed permitted visit only: follow the actual signs, safe viewing boundaries and staff instructions; conditions may differ from historic photos."
+      },
+      {
+        "label": "Monsoon",
+        "title": "Carry a lens cloth",
+        "body": "For a confirmed permitted visit only: follow the actual signs, safe viewing boundaries and staff instructions; conditions may differ from historic photos."
+      },
+      {
+        "label": "Cave",
+        "title": "Religious-area rules",
+        "body": "For a confirmed permitted visit only: follow the actual signs, safe viewing boundaries and staff instructions; conditions may differ from historic photos."
+      },
+      {
+        "label": "Stay",
+        "title": "Use Lakeside as base",
+        "body": "Compare accommodation areas against your actual route, rates, availability and mobility needs. This guide has not verified current hotels or a short journey from them."
+      }
+    ]
+  },
+  "faq": {
+    "kicker": "FAQ",
+    "title": "Before you go,",
+    "titleAccent": "short answers",
+    "copy": "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified.",
+    "items": [
+      {
+        "q": "Is Devi’s Fall open now?",
+        "a": "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified."
+      },
+      {
+        "q": "What are the current opening hours?",
+        "a": "No current opening timetable or reopening date has been confirmed. Do not rely on old daily hours while Maps shows a temporary closure."
+      },
+      {
+        "q": "How much is admission?",
+        "a": "No current admission price or active ticket offer has been independently verified. Check management confirmation of access and then the applicable fee and concession conditions."
+      },
+      {
+        "q": "Does cave opening prove waterfall entry?",
+        "a": "No. Gupteshwar is a separate attraction. Its hours, tickets and tour sales do not establish waterfall access or a shared ticket."
+      },
+      {
+        "q": "How should I plan travel from Lakeside?",
+        "a": "Ask for Devi’s Fall / Patale Chhango in Chhorepatan. Confirm current access first, then agree on route, price, luggage needs and return pickup. No fixed journey time is promised."
+      },
+      {
+        "q": "Are the different names the same place?",
+        "a": "Devi’s Fall, Davis Falls and Patale Chhango are names used for this Chhorepatan waterfall. Confirm the exact map point rather than relying on spelling alone."
+      },
+      {
+        "q": "Why is it closed and when will it reopen?",
+        "a": "The dated Maps notice supplies neither a reason nor a reopening date, and no current management confirmation has been verified. Older closure reports do not establish today’s cause."
+      }
+    ]
+  },
+  "guides": {
+    "kicker": "Read more",
+    "title": "Pages about",
+    "titleAccent": "the fall",
+    "items": [
+      {
+        "key": "fee",
+        "title": "Entry fee & tickets",
+        "body": "Current closure-listing context, source limits and what to verify before making arrangements."
+      },
+      {
+        "key": "hours",
+        "title": "Opening hours & best season",
+        "body": "Current closure-listing context, source limits and what to verify before making arrangements."
+      },
+      {
+        "key": "reach",
+        "title": "How to reach from Lakeside",
+        "body": "Current closure-listing context, source limits and what to verify before making arrangements."
+      }
+    ]
+  },
+  "sources": {
+    "kicker": "Sources",
+    "title": "Where the info comes from",
+    "titleAccent": "Dated source roles",
+    "note": "Checked 26 October 2026: NTB supports destination/history; Google Maps supplies the dated closure listing and place point. Neither has supplied a verified current reopening or fee notice in the sources read.",
+    "photoNote": "Individual author, source, licence, historical date and crop notices are in Photo credits."
+  },
+  "footer": {
+    "tagline": "Devi’s Fall Pokhara · पाताले छाँगो",
+    "disclaimer": "Chhorepatan, H10, Pokhara 33700 · Maps-listed contact +9779805889741; not independently verified as current management.",
+    "privacy": "Privacy",
+    "terms": "Terms of use",
+    "credits": "Photo credits",
+    "sources": "Sources",
+    "cookie": "Cookie settings",
+    "copyright": "Independent, unofficial, nonprofit tourism and educational guide. Not the site operator, municipality or any government authority. Checked 26 October 2026; confirm current access with responsible management."
+  },
+  "dialogs": {
+    "close": "Close",
+    "privacy": {
+      "kicker": "Privacy",
+      "title": "Your data",
+      "paragraphs": [
+        "This information site has no accounts, bookings or contact forms. Google Maps loads separately and uses Google’s own policies.",
+        "GA4 may start immediately after permission is successfully stored and verified. Cookie settings lets you withdraw; it cannot recall data already sent. Local storage records the choice; a session refusal helps keep this tab off after a storage failure. Failure feedback explains whether a stored grant may remain.",
+        "Hosting may process technical request logs and inject an independent Cloudflare performance beacon. The GA choice does not control that beacon; script presence alone does not prove a particular visit transmitted data. The service worker caches same-origin pages and resources for offline use."
+      ]
+    },
+    "terms": {
+      "kicker": "Terms of use",
+      "title": "Travel information",
+      "paragraphs": [
+        "Google Maps listed this waterfall as temporarily closed when checked on 26 October 2026. No current management notice confirming the reason or reopening date has been verified.",
+        "Do not travel expecting admission from an old timetable, ticket list or a nearby cave/tour offer. Check current management information; this guide sells no tickets and guarantees no admission, accessibility or journey time.",
+        "Respect closures, barriers and staff instructions. Historical photographs and sourced landscape descriptions are not current safety or opening assessments."
+      ]
+    },
+    "credits": {
+      "kicker": "Photo credits",
+      "title": "Photos from the actual site",
+      "note": "Four original Commons photographs show 2013/2018 scenes. CSS crops their display; the files are retained byte-for-byte. Each image remains under its individual CC BY-SA licence.",
+      "photoNote": "Individual author, source, licence, historical date and crop notices are in Photo credits."
+    },
+    "sources": {
+      "kicker": "Sources",
+      "title": "Sources and dates",
+      "note": "Checked 26 October 2026: NTB supports destination/history; Google Maps supplies the dated closure listing and place point. Neither has supplied a verified current reopening or fee notice in the sources read."
+    }
+  },
+  "cookie": {
+    "text": "Optional GA4 analytics starts only after verified permission; refusal or withdrawal turns it off on this page before storage is attempted. The separate map remains subject to Google’s policies.",
+    "deny": "Essential only",
+    "allow": "Accept"
+  },
+  "homeLink": "Home"
 };

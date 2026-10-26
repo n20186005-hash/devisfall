@@ -10,6 +10,7 @@ import type { HomeContent } from '../content/types';
 import { buildWebsiteSchema, buildAttractionSchema, buildBreadcrumbSchema, buildFaqSchema } from '../lib/schema';
 import SiteHeader from './SiteHeader.astro';
 import SiteFooter from './SiteFooter.astro';
+import StatusNotice from './StatusNotice.astro';
 
 interface Props {
   locale: Locale;
@@ -22,7 +23,6 @@ const A = ATTRACTION;
 const pagePath = localizePath(locale, 'home');
 const canonicalURL = Astro.site ? new URL(pagePath, Astro.site).toString() : pagePath;
 const ogImage = Astro.site ? new URL('/og-card.jpg', Astro.site).toString() : '/og-card.jpg';
-const heroImage = Astro.site ? new URL('/images/devis-fall-monsoon.jpg', Astro.site).toString() : '/images/devis-fall-monsoon.jpg';
 const alts = alternates('home', Astro.site);
 const langSwitchHref = localizePath(other, 'home');
 
@@ -67,13 +67,13 @@ const guideLinks = content.guides.items.map((item) => ({ ...item, href: localize
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${A.fullName} in ${A.cityName}, ${A.countryName}`} />
+    <meta property="og:image:alt" content={locale === 'ne' ? 'पाताले छाँगो जानकारी गाइडको चित्रात्मक कार्ड, वास्तविक तस्बिर होइन' : 'Illustrated Devi’s Fall guide card, not a photograph'} />
     {canonicalURL && <meta property="og:url" content={canonicalURL} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={content.meta.title} />
     <meta name="twitter:description" content={content.meta.description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={`${A.fullName} in ${A.cityName}, ${A.countryName}`} />
+    <meta name="twitter:image:alt" content={locale === 'ne' ? 'पाताले छाँगो जानकारी गाइडको चित्रात्मक कार्ड, वास्तविक तस्बिर होइन' : 'Illustrated Devi’s Fall guide card, not a photograph'} />
 
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
     <script type="application/ld+json" set:html={JSON.stringify(attractionSchema)}></script>
@@ -84,8 +84,9 @@ const guideLinks = content.guides.items.map((item) => ({ ...item, href: localize
     <SiteHeader locale={locale} content={content} langSwitchHref={langSwitchHref} />
 
     <main id="top">
-      <section class="relative min-h-[810px] overflow-hidden pt-28 md:pt-20">
-        <div class="hero-media absolute inset-0 top-28 md:top-20">
+      <StatusNotice locale={locale} />
+      <section class="relative min-h-[810px] overflow-hidden">
+        <div class="hero-media absolute inset-0">
           <img src={photos[0].src} alt={content.hero.altText} width="1200" height="1800" loading="eager" decoding="async" />
         </div>
         <div class="shell relative z-10 flex min-h-[730px] items-end pb-16 pt-28 lg:items-center lg:pb-0">

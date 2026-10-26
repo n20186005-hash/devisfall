@@ -1,7 +1,7 @@
-/* Devi's Fall Pokhara — service worker v2026-09-09 */
-const VERSION = 'devisfall-v2026-09-09';
+/* Devi's Fall Pokhara — service worker v2026-10-26 */
+const VERSION = 'devisfall-v2026-10-26';
 const CORE = [
-  '/',
+  '/', '/pravesh-shulka/', '/khulne-samaya/', '/bato/', '/en/', '/en/entry-fee/', '/en/opening-hours/', '/en/how-to-reach/',
   '/site.webmanifest',
   '/favicon.svg',
   '/favicon-32.png',
@@ -35,16 +35,16 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Navigation: network-first with offline fallback to cached root page.
+  // Navigation: network-first with offline fallback to the same cached page.
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(VERSION).then((cache) => cache.put('/', copy)).catch(() => {});
+          if (response.ok) caches.open(VERSION).then((cache) => cache.put(request, copy)).catch(() => {});
           return response;
         })
-        .catch(() => caches.match(request).then((r) => r || caches.match('/')))
+        .catch(async () => (await caches.match(request)) || new Response('Offline: this page is not cached. / अफलाइन: यो पृष्ठ सुरक्षित छैन।', {status:503,headers:{'Content-Type':'text/plain; charset=utf-8'}}))
     );
     return;
   }
@@ -57,7 +57,7 @@ self.addEventListener('fetch', (event) => {
         fetch(request).then((response) => {
           if (response.ok && (url.pathname.startsWith('/images/') || url.pathname.endsWith('.svg') || url.pathname.endsWith('.png') || url.pathname.endsWith('.webmanifest'))) {
             const copy = response.clone();
-            caches.open(VERSION).then((cache) => cache.put(request, copy)).catch(() => {});
+            if (response.ok) caches.open(VERSION).then((cache) => cache.put(request, copy)).catch(() => {});
           }
           return response;
         })

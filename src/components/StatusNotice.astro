@@ -1,0 +1,5 @@
+---
+interface Props { locale:'ne'|'en' }
+const {locale}=Astro.props;
+---
+<aside class="shell pt-36 pb-4 md:pt-24" aria-label={locale==='ne'?'मितिसहित प्रवेश अवस्था':'Dated access status'}><div class="rounded-2xl border border-rock/40 bg-cave-soft p-5 text-sm leading-7"><strong>{locale==='ne'?'अस्थायी बन्द सूची · २६ अक्टोबर २०२६':'Temporary-closure listing · 26 October 2026'}</strong><p>{locale==='ne'?'Google Mapsमा पाताले छाँगो अस्थायी रूपमा बन्द देखिएको थियो। हालको कारण वा पुनः खुल्ने मिति व्यवस्थापनबाट पुष्टि भएको छैन। पुरानो समय, टिकट वा छेउको गुफा खुल्नु झरनामा प्रवेशको प्रमाण होइन।':'Google Maps listed this waterfall as temporarily closed. No current management confirmation of the reason or reopening date has been verified. Old hours, tickets or a nearby cave being open do not establish waterfall access.'} <a class="underline" href="https://maps.app.goo.gl/fBtCZziA1LastCeP6">Google Maps</a></p></div></aside>

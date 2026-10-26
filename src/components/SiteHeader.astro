@@ -22,7 +22,7 @@ const navItems = [
 <header class="fixed inset-x-0 top-0 z-50 border-b border-white/8 glass">
   <div class="shell flex h-20 items-center justify-between gap-5">
     <a href={home} class="focus-ring flex items-center" aria-label={content.hero.altText}>
-      <img src="/logo.svg" alt={A.localName} width="246" height="68" class="h-14 w-auto" />
+      <img src="/logo.svg" alt={A.localName} width="246" height="68" class="h-auto w-36 sm:w-48" />
     </a>
     <nav class="hidden items-center gap-7 text-sm text-foam/75 md:flex" aria-label={content.nav.ariaLabel}>
       {navItems.map((item) => <a class="hover:text-water" href={item.href}>{item.label}</a>)}
@@ -33,6 +33,7 @@ const navItems = [
     </div>
   </div>
   <nav class="shell flex gap-6 overflow-x-auto pb-3 text-sm text-foam/70 md:hidden" aria-label={content.nav.mobileAriaLabel}>
+    <a href={langSwitchHref} class="whitespace-nowrap font-bold text-water sm:hidden">{content.nav.langSwitch}</a>
     {navItems.map((item) => <a class="whitespace-nowrap hover:text-water" href={item.href}>{item.label}</a>)}
   </nav>
 </header>

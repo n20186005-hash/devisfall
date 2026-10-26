@@ -9,7 +9,7 @@ const site = SITE.trim() || undefined;
 
 export default defineConfig({
   site,
-  integrations: site ? [sitemap()] : [],
+  integrations: site ? [sitemap({ filter: page => !/\/(?:en\/)?404(?:\/|\.html)?$/.test(new URL(page).pathname) })] : [],
   vite: {
     plugins: [tailwindcss()],
   },

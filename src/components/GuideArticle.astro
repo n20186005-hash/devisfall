@@ -10,6 +10,7 @@ import type { HomeContent } from '../content/types';
 import { buildWebsiteSchema, buildBreadcrumbSchema, buildFaqSchema } from '../lib/schema';
 import SiteHeader from './SiteHeader.astro';
 import SiteFooter from './SiteFooter.astro';
+import StatusNotice from './StatusNotice.astro';
 
 interface Props {
   locale: Locale;
@@ -65,7 +66,7 @@ const relatedLinks = related.map((k) => ({ entry: guides[k][locale], href: local
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${A.fullName} in ${A.cityName}, ${A.countryName}`} />
+    <meta property="og:image:alt" content={locale === 'ne' ? 'पाताले छाँगो जानकारी गाइडको चित्रात्मक कार्ड, वास्तविक तस्बिर होइन' : 'Illustrated Devi’s Fall guide card, not a photograph'} />
     {canonicalURL && <meta property="og:url" content={canonicalURL} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={entry.title} />
@@ -80,7 +81,8 @@ const relatedLinks = related.map((k) => ({ entry: guides[k][locale], href: local
     <SiteHeader locale={locale} content={content} langSwitchHref={langSwitchHref} />
 
     <main id="top">
-      <section class="relative overflow-hidden pt-28 md:pt-20">
+      <StatusNotice locale={locale} />
+      <section class="relative overflow-hidden">
         <div class="shell pb-12 pt-10 md:pb-16">
           <nav class="text-xs font-bold uppercase tracking-[.15em] text-water/80" aria-label="breadcrumb">
             <a class="hover:text-water" href={homePath}>{(locale === 'ne' ? 'मुख्य पृष्ठ' : 'Home')}</a> → {entry.h1}
@@ -98,7 +100,7 @@ const relatedLinks = related.map((k) => ({ entry: guides[k][locale], href: local
             <div>
               {block.kicker && <p class="text-xs font-bold uppercase tracking-[.15em] text-water">{block.kicker}</p>}
               <h2 class="mt-2 text-2xl font-black text-foam md:text-3xl">{block.heading}</h2>
-              <div class="mt-4 space-y-3 text-[15px] leading-7 text-foam/70">
+              <div class="guide-prose mt-4 space-y-3 text-[15px] leading-7 text-foam/70">
                 {block.body.map((p) => <p>{p}</p>)}
                 {block.bullets && (
                   <ul class="ml-5 list-disc space-y-2 text-foam/70">

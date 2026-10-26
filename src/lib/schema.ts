@@ -29,18 +29,13 @@ export function buildAttractionSchema(site: URL | undefined, description: string
   const b = base(site);
   const A = ATTRACTION;
   const heroImage = new URL('/images/devis-fall-monsoon.jpg', b).toString();
-  const ogImage = new URL('/og-card.jpg', b).toString();
   return {
     '@context': 'https://schema.org',
-    '@type': ['TouristAttraction', 'LocalBusiness'],
+    '@type': 'TouristAttraction',
     '@id': attractionId(site),
     name: A.fullName,
     alternateName: [A.shortName, A.localName, A.romanName, `${A.cityName} ${A.fullName}`, ...A.altNames],
     description,
-    telephone: A.phoneHref,
-    isAccessibleForFree: false,
-    publicAccess: true,
-    availableLanguage: ['ne', 'en'],
     touristType: ['Nature lovers', 'Families', 'Photographers'],
     hasMap: A.mapsUrl,
     address: {
@@ -56,24 +51,9 @@ export function buildAttractionSchema(site: URL | undefined, description: string
       latitude: A.lat,
       longitude: A.lng,
     },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        opens: A.hours.opens,
-        closes: A.hours.closes,
-      },
-    ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: A.rating,
-      bestRating: '5',
-      reviewCount: A.reviewCount.replace(',', ''),
-    },
-    priceRange: A.tickets.range,
     sameAs: [A.mapsUrl, A.govtTourismUrl, A.govtTourismUrl2],
     url: b,
-    image: [heroImage, ogImage],
+    image: [heroImage],
   };
 }
 
